@@ -13,8 +13,7 @@ type Response = Either<
     RegisterErrors.DuplicateEmailError |
     AppError.UnexpectedError |
     Result<any>,
-    Result<void> |
-    Result<Customer[]>
+    Result<void>
 >
 // 
 
