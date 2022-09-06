@@ -34,7 +34,7 @@ export class CreateCategoryUseCase implements UseCase<CreateCategoryDTO, Promise
 
         try {
             const category = categoryOrError.getValue()
-            await this.categoryRepository.save(category)
+            await this.categoryRepository.save(category.props as Category)
 
             return right(Result.ok<void>())
         } catch (error) {

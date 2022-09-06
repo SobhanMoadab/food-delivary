@@ -5,7 +5,7 @@ import { UniqueEntityID } from "../../../../shared/domain/UniqueEntityID";
 import { Product } from "../Product/Product";
 
 
-interface CategoryProps {
+export interface CategoryProps {
     id?: string
     name: string
     products?: Product[]
