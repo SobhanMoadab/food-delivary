@@ -1,4 +1,4 @@
-import { Category } from "../../domain/Category/Category"
+import { Category } from "../../domain/category"
 
 
 export interface CreateProductDTO {
@@ -6,5 +6,5 @@ export interface CreateProductDTO {
     fee: number,
     recipe: string,
     discountedFee: number
-    category: Category
+    category: string
 }

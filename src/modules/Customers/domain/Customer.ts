@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 import { Guard } from "../../../shared/core/Guard";
 import { left, Result } from "../../../shared/core/Result";
 import { Entity } from "../../../shared/domain/Entity";

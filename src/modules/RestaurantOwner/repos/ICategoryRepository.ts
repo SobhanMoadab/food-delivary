@@ -1,9 +1,9 @@
-import { Category } from "../domain/Category/Category";
+import { Category } from "../domain/category";
 
 
 export interface ICategoryRepository {
     save(category: Category): Promise<void>
-    // exists
+    findById(id: string): Promise<Category>
     // list
     // by id
 }

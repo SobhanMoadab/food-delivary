@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { AppError } from "../../../../shared/core/AppError";
+import { UnexpectedError } from "../../../../shared/core/AppError";
 import { BaseController } from "../../../../shared/infra/http/models/BaseController";
 import { DecodedExpressRequest } from "../../infra/http/models/DecodedExpressRequest";
 import { RegisterDTO } from "./RegisterDTO";
@@ -31,7 +31,7 @@ export class RegisterController extends BaseController {
                 switch (error.constructor) {
                     case RegisterErrors.DuplicateEmailError:
                         return res.status(400).json({ status: 400, msg: error.getErrorValue() })
-                    case AppError.UnexpectedError:
+                    case UnexpectedError:
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })
                     default:
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })

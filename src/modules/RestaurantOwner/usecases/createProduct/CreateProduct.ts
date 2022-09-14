@@ -1,14 +1,16 @@
-import { AppError } from "../../../../shared/core/AppError";
+/* eslint-disable no-empty */
+import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
-import { Product } from "../../domain/Product/Product";
+import { Product } from "../../domain/product";
+import { ICategoryRepository } from "../../repos/ICategoryRepository";
 import { IProductRepository } from "../../repos/IProductRepository";
+import { Category404 } from "../createCategory/CreateCategoryErrors";
 import { CreateProductDTO } from "./CreateProductDTO";
 
-
 type Response = Either<
-    // CreateProductErrors.DuplicateCategoryName |
-    AppError.UnexpectedError |
+    Category404 |
+    UnexpectedError |
     Result<any>,
     Result<void>
 >
@@ -16,7 +18,10 @@ type Response = Either<
 
 export class CreateProductUseCase implements UseCase<CreateProductDTO, Promise<Response>> {
 
-    constructor(public productRepo: IProductRepository) { }
+    constructor(
+        public productRepository: IProductRepository,
+        public categoryRepository: ICategoryRepository
+    ) { }
 
     public async execute(req: CreateProductDTO): Promise<Response> {
 
@@ -30,17 +35,24 @@ export class CreateProductUseCase implements UseCase<CreateProductDTO, Promise<R
 
         const productOrError = Product.create(dto)
         const dtoResult = Result.combine([productOrError])
-
         if (productOrError.isFailure) {
             return left(Result.fail<void>(dtoResult.getErrorValue())) as Response
         }
-        try {
-            const product = productOrError.getValue()
-            await this.productRepo.save(product)
-            return right(Result.ok<void>())
-        } catch (error) {
-            return left(new AppError.UnexpectedError(error)) as Response;
+        const product = productOrError.getValue()
 
+        try {
+            try {
+                const exists = await this.categoryRepository.findById(product.category)
+                if (!exists) {
+                    return left(new Category404())
+                }
+            } catch (err) {}
+
+            await this.productRepository.save(product.props as Product)
+            return right(Result.ok<void>())
+
+        } catch (error) {
+            return left(new UnexpectedError(error)) as Response;
         }
 
     }

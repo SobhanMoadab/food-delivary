@@ -1,6 +1,7 @@
 
 export type GuardResponse = string;
 
+import { ObjectId, isValidObjectId } from "mongoose";
 import { Result } from "./Result";
 
 export interface IGuardArgument {
@@ -11,6 +12,10 @@ export interface IGuardArgument {
 export type GuardArgumentCollection = IGuardArgument[];
 
 export class Guard {
+
+  public static isObjectId(id: string | ObjectId): boolean {
+    return isValidObjectId(id)
+  }
 
   public static combine(guardResults: Result<any>[]): Result<GuardResponse> {
     for (let result of guardResults) {

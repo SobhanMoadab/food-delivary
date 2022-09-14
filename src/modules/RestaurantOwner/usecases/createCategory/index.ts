@@ -1,7 +1,7 @@
 import { CreateCategoryController } from './CreateCategoryController'
 import { CreateCategoryUseCase } from './CreateCategory'
 import { CategoryModel } from '../../../../shared/infra/database/mongoose/models/Category'
-import { CategoryRepository } from '../../repos/impl/CategoryMongoose'
+import { CategoryRepository } from '../../repos/impl/categoryMongoose'
 
 
 

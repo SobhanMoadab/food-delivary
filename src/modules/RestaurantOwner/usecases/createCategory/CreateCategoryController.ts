@@ -1,12 +1,10 @@
-import e, { Request, Response } from "express";
-import { ParamsDictionary } from "express-serve-static-core";
-import { ParsedQs } from "qs";
-import { AppError } from "../../../../shared/core/AppError";
+import { Request, Response } from "express";
+import { UnexpectedError } from "../../../../shared/core/AppError";
 import { BaseController } from "../../../../shared/infra/http/models/BaseController"
 import { DecodedExpressRequest } from "../../../Customers/infra/http/models/DecodedExpressRequest";
 import { CreateCategoryUseCase } from "./CreateCategory";
 import { CreateCategoryDTO } from "./CreateCategoryDTO";
-import { CreateCategoryErrors } from "./CreateCategoryErrors";
+import { Category404, DuplicateCategoryName } from "./CreateCategoryErrors";
 
 
 export class CreateCategoryController extends BaseController {
@@ -26,9 +24,11 @@ export class CreateCategoryController extends BaseController {
             if (result.isLeft()) {
                 const error = result.value
                 switch (error.constructor) {
-                    case CreateCategoryErrors.DuplicateCategoryName:
+                    case DuplicateCategoryName:
                         return res.status(400).json({ status: 400, msg: error.getErrorValue() })
-                    case AppError.UnexpectedError:
+                    case Category404:
+                        return res.status(400).json({ status: 400, msg: error.getErrorValue() })
+                    case UnexpectedError:
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })
                     default:
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })
@@ -37,7 +37,7 @@ export class CreateCategoryController extends BaseController {
                 return res.status(201).json({ status: 201, msg: 'Successful' })
             }
         } catch (err) {
-
+            return res.status(500).json({ status: 500, msg: 'Something went wrong' })
         }
     }
 }

@@ -1,7 +1,6 @@
-import { AppError } from "../../../../shared/core/AppError";
+import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
-import { UseCaseError } from "../../../../shared/core/UseCaseError";
 import { Customer } from "../../domain/Customer";
 import { JWTToken, RefreshToken } from "../../domain/jwt";
 import { ICustomerRepository } from "../../repos/ICustomerRepository";
@@ -11,7 +10,7 @@ import { RegisterErrors } from './RegisterErrors'
 
 type Response = Either<
     RegisterErrors.DuplicateEmailError |
-    AppError.UnexpectedError |
+    UnexpectedError |
     Result<any>,
     Result<void>
 >
@@ -69,7 +68,7 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> 
             })) as Response
 
         } catch (err) {
-            return left(new AppError.UnexpectedError(err)) as Response;
+            return left(new UnexpectedError(err)) as Response;
         }
     }
 }

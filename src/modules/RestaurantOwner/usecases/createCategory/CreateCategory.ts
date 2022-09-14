@@ -1,15 +1,16 @@
-import { AppError } from "../../../../shared/core/AppError";
+import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
-import { Category } from "../../domain/Category/Category";
+import { Category } from "../../domain/category";
 import { CreateCategoryDTO } from "./CreateCategoryDTO";
-import { CreateCategoryErrors } from "./CreateCategoryErrors";
+import { Category404, DuplicateCategoryName } from "./CreateCategoryErrors";
 import { ICategoryRepository } from './../../repos/ICategoryRepository'
 
 
 type Response = Either<
-    CreateCategoryErrors.DuplicateCategoryName |
-    AppError.UnexpectedError |
+    DuplicateCategoryName |
+    Category404 |
+    UnexpectedError |
     Result<any>,
     Result<void>
 >
@@ -38,7 +39,7 @@ export class CreateCategoryUseCase implements UseCase<CreateCategoryDTO, Promise
 
             return right(Result.ok<void>())
         } catch (error) {
-            return left(new AppError.UnexpectedError(error)) as Response;
+            return left(new UnexpectedError(error)) as Response;
 
         }
 
