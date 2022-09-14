@@ -14,10 +14,13 @@ export class CategoryRepository implements ICategoryRepository {
     }
     async save(props: Category): Promise<void> {
         await this._model.create(props)
+        return
     }
 
     async findById(id: string): Promise<Category> {
         const category = await this._model.findById(id)
-        return CategoryMapper.toDomain(category)
+        if(!category) throw new Error()
+        if (category?.products) return CategoryMapper.toDomain({ ...category, products: [] })
+        else return CategoryMapper.toDomain({ ...category })
     }
 }

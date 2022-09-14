@@ -3,6 +3,7 @@
 import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
+import { Category } from "../../domain/category";
 import { Product } from "../../domain/product";
 import { ICategoryRepository } from "../../repos/ICategoryRepository";
 import { IProductRepository } from "../../repos/IProductRepository";
@@ -19,12 +20,14 @@ type Response = Either<
 
 export class CreateProductUseCase implements UseCase<CreateProductDTO, Promise<Response>> {
 
+
     constructor(
         public productRepository: IProductRepository,
         public categoryRepository: ICategoryRepository
     ) { }
 
     public async execute(req: CreateProductDTO): Promise<Response> {
+        let category: Category
 
         const dto = {
             name: req.name,
@@ -33,7 +36,6 @@ export class CreateProductUseCase implements UseCase<CreateProductDTO, Promise<R
             discountedFee: req.discountedFee,
             category: req.category
         }
-
         const productOrError = Product.create(dto)
         const dtoResult = Result.combine([productOrError])
         if (productOrError.isFailure) {
@@ -43,17 +45,17 @@ export class CreateProductUseCase implements UseCase<CreateProductDTO, Promise<R
 
         try {
             try {
-                const exists = await this.categoryRepository.findById(product.category)
-                if (!exists) {
-                    return left(new Category404())
-                }
-            } catch (err) {}
+                category = await this.categoryRepository.findById(product.category)
+            } catch (err) {
+                return left(new Category404())
+            }
+
 
             await this.productRepository.save(product.props as Product)
             return right(Result.ok<void>())
 
         } catch (error) {
-            return left(new UnexpectedError(error)) as Response;
+            return left(new UnexpectedError(error));
         }
 
     }

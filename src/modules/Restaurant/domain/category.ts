@@ -15,11 +15,15 @@ export interface CategoryProps {
 export class Category extends Entity<CategoryProps> {
 
     constructor(props: CategoryProps, id?: UniqueEntityID) {
-        super(props, id)
+        super(props)
     }
 
     get name(): string {
         return this.props.name
+    }
+
+    get products(): Product[] | null {
+        return this.props.products ?? null
     }
 
     public static create(props: CategoryProps, id?: UniqueEntityID): Result<Category> {

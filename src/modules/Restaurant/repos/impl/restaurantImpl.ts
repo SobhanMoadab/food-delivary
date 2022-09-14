@@ -1,5 +1,4 @@
 import { Model } from "mongoose";
-import { getTypeParameterOwner } from "typescript";
 import { Restaurant, RestaurantProps } from "../../domain/restaurant";
 import { IRestaurantRepository } from "../IRestaurantRepository";
 

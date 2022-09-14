@@ -10,7 +10,7 @@ export interface ProductProps {
     name: string,
     fee: number,
     recipe: string,
-    discountedFee: number
+    discountedFee?: number
     category: string
 }
 
@@ -27,8 +27,8 @@ export class Product extends Entity<ProductProps> {
         return this.props.recipe
 
     }
-    get discountedFee(): number {
-        return this.props.discountedFee
+    get discountedFee(): number | null {
+        return this.props.discountedFee ?? null
 
     }
     get fee(): number {
@@ -43,7 +43,6 @@ export class Product extends Entity<ProductProps> {
     public static create(props: ProductProps): Result<Product> {
         const nullGuard = Guard.againstNullOrUndefinedBulk([
             { argument: props.name, argumentName: 'name' },
-            { argument: props.discountedFee, argumentName: 'discountedFee' },
             { argument: props.fee, argumentName: 'fee' },
             { argument: props.recipe, argumentName: 'recipe' },
         ])

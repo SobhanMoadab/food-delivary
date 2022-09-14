@@ -13,15 +13,13 @@ export class ProductRepository implements IProductRepository {
     }
     async save(props: Product): Promise<void> {
         await this._model.create({
-            category: {
-                // name: props.category.name,
-                // id: props.category.id
-            },
+            category: props.category,
             discountedFee: props.discountedFee,
             fee: props.fee,
             name: props.name,
             recipe: props.recipe
         })
+        return
     }
 
 

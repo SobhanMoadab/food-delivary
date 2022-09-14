@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { UnexpectedError } from "../../../../shared/core/AppError";
 import { BaseController } from "../../../../shared/infra/http/models/BaseController"
 import { DecodedExpressRequest } from "../../../Customer/infra/http/models/DecodedExpressRequest";

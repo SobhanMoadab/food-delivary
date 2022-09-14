@@ -4,12 +4,10 @@ import { Product } from "../domain/product";
 export class CategoryMapper {
     public static toDomain(raw: any): Category {
 
-        const products: Product[] = raw.products
-
         const categoryOrError = Category.create({
-            name: raw.name,
-            products
+            name: raw._doc.name,
+            products: raw.products
         })
-        return categoryOrError.getValue()
+        return categoryOrError.isSuccess ? categoryOrError.getValue() : categoryOrError.getErrorValue()
     }
 }   

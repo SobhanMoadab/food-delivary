@@ -2,9 +2,9 @@ import { Response } from "express"
 import { UnexpectedError } from "../../../../shared/core/AppError"
 import { BaseController } from "../../../../shared/infra/http/models/BaseController"
 import { DecodedExpressRequest } from "../../../Customer/infra/http/models/DecodedExpressRequest"
+import { Category404 } from "../createCategory/CreateCategoryErrors"
 import { CreateProductUseCase } from "./CreateProduct"
 import { CreateProductDTO } from "./CreateProductDTO"
-import { DuplicateProductName } from "./CreateProductErrors"
 
 
 export class CreateProductController extends BaseController {
@@ -28,7 +28,7 @@ export class CreateProductController extends BaseController {
             if (result.isLeft()) {
                 const error = result.value
                 switch (error.constructor) {
-                    case DuplicateProductName:
+                    case Category404:
                         return res.status(400).json({ status: 400, msg: error.getErrorValue() })
                     case UnexpectedError:
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })
