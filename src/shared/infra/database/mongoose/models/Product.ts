@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { ProductProps } from '../../../../../modules/RestaurantOwner/domain/product'
+import { ProductProps } from '../../../../../modules/Restaurant/domain/product'
 
 
 export const Product = new Schema<ProductProps>({

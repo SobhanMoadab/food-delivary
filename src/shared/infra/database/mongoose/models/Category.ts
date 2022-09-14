@@ -1,5 +1,5 @@
 import { Schema, model, Document } from 'mongoose'
-import { CategoryProps } from '../../../../../modules/RestaurantOwner/domain/category'
+import { CategoryProps } from '../../../../../modules/Restaurant/domain/category'
 
 
 export const Category = new Schema<CategoryProps>({
