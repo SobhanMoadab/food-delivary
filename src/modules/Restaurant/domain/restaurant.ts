@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { ObjectId } from "mongodb";
 import { Guard } from "../../../shared/core/Guard";
 import { left, Result } from "../../../shared/core/Result";
 import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
+import { Entity } from "../../../shared/domain/Entity";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { Category } from "./category";
 import { RestaurantCreated } from "./events/restaurantCreated";
@@ -9,22 +11,22 @@ import { Product } from "./product";
 
 
 export interface RestaurantProps {
+    id?: string
     name: string
     city: string
     ownerName: string
     ownerSurname: string
     phoneNumber: number
-    products?: Product[]
+    product?: Product
     categories?: Category[]
 }
 
-export class Restaurant extends AggregateRoot<RestaurantProps> {
-    constructor(props: RestaurantProps, id?: UniqueEntityID) {
-        super(props, id)
+export class Restaurant extends Entity<RestaurantProps> {
+    id: any;
+    constructor(props: RestaurantProps) {
+        super(props)
     }
-    get id(): UniqueEntityID {
-        return this._id
-    }
+
     get name(): string {
         return this.props.name
     }
@@ -40,15 +42,15 @@ export class Restaurant extends AggregateRoot<RestaurantProps> {
     get phoneNumber(): number {
         return this.props.phoneNumber
     }
-    get products(): Product[] {
+    get product(): Product | null{
 
-        return this.props.products ?? []
+        return this.props.product ?? null
     }
     get categories(): Category[] {
         return this.props.categories ?? []
     }
 
-    public static create(props: RestaurantProps, id?: UniqueEntityID): Result<Restaurant> {
+    public static create(props: RestaurantProps): Result<Restaurant> {
 
         const guardResult = Guard.againstNullOrUndefinedBulk([
             { argument: props.name, argumentName: 'name' },

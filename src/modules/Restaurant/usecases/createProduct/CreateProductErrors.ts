@@ -8,7 +8,7 @@ export class DuplicateProductName extends Result<UseCaseError> {
     }
 }
 export class Product404 extends Result<UseCaseError> {
-    constructor(name: string) {
+    constructor() {
         super(false, {
             message: `Product does not exist!`
         } as UseCaseError)

@@ -1,7 +1,7 @@
 
 import { RegisterUseCase } from './RegisterUseCase'
 import { RegisterController } from './RegisterController'
-import { CustomerRepository } from '../../repos/impl/CustomerMongoose'
+import { CustomerRepository } from '../../repos/impl/CustomerImpl'
 import { CustomerModel } from '../../../../shared/infra/database/mongoose/models/Customer'
 import { authService } from '../../services'
 

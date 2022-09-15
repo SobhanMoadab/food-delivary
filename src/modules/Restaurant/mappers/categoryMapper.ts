@@ -1,5 +1,4 @@
 import { Category } from "../domain/category";
-import { Product } from "../domain/product";
 
 export class CategoryMapper {
     public static toDomain(raw: any): Category {

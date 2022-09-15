@@ -52,7 +52,7 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> 
             //         new RegisterErrors.DuplicateEmailError(customer.email)
             //     ) as Response;
             // }
-            await this.customerRepository.create(customer);
+            await this.customerRepository.save(customer);
 
             const accessToken: JWTToken = this.authService.signJWT({
                 email: customer.email,

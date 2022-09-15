@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
 import { Entity } from "../../../shared/domain/Entity";
@@ -6,7 +7,7 @@ import { Category } from "./category";
 
 
 export interface ProductProps {
-    id?: string,
+    id?: string
     name: string,
     fee: number,
     recipe: string,
@@ -15,11 +16,12 @@ export interface ProductProps {
 }
 
 export class Product extends Entity<ProductProps> {
+    id: any;
 
-    constructor(props: ProductProps, id?: UniqueEntityID) {
+    constructor(props: ProductProps) {
         super(props)
     }
-
+    
     get name(): string {
         return this.props.name
     }
@@ -46,9 +48,6 @@ export class Product extends Entity<ProductProps> {
             { argument: props.fee, argumentName: 'fee' },
             { argument: props.recipe, argumentName: 'recipe' },
         ])
-        if (!Guard.isObjectId(props.category)) {
-            return Result.fail<Product>('category is not objectId')
-        }
 
         if (nullGuard.isFailure) {
             return Result.fail<Product>(nullGuard.getErrorValue())

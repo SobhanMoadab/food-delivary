@@ -1,5 +1,6 @@
 import { Model } from "mongoose";
 import { Product, ProductProps } from "../../domain/product";
+import { ProductMapper } from "../../mappers/productMapper";
 import { IProductRepository } from "../IProductRepository";
 
 
@@ -12,15 +13,14 @@ export class ProductRepository implements IProductRepository {
         this._model = schemaModel;
     }
     async save(props: Product): Promise<void> {
-        await this._model.create({
-            category: props.category,
-            discountedFee: props.discountedFee,
-            fee: props.fee,
-            name: props.name,
-            recipe: props.recipe
-        })
+        const toPers = ProductMapper.toPersistence(props)
+        await this._model.create(toPers)
         return
     }
-
+    async findById(id: string): Promise<Product> {
+        const product = await this._model.findById(id)
+        if (!product) throw new Error()
+        return ProductMapper.toDomain({ ...product })
+    }
 
 }

@@ -25,7 +25,6 @@ export class RegisterRestaurantController extends BaseController {
         }
         try {
             const result = await this.useCase.execute(dto)
-            console.log({ result })
             if (result.isLeft()) {
                 const error = result.value
                 switch (error.constructor) {

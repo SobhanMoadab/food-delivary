@@ -25,10 +25,8 @@ export class RegisterRestaurantUseCase implements UseCase<RegisterRestaurantDTO,
     ) { }
 
     public async execute(req: RegisterRestaurantDTO): Promise<Response> {
-        console.log('helooooooooooooooo')
 
         let restaurant: Restaurant
-        // let category: Category
 
         const dto = {
             name: req.name,
@@ -36,17 +34,9 @@ export class RegisterRestaurantUseCase implements UseCase<RegisterRestaurantDTO,
             ownerName: req.ownerName,
             ownerSurname: req.ownerSurname,
             phoneNumber: req.phoneNumber,
-            // category: req.category
         }
 
         try {
-            // try {
-            //     category = await this.categoryRepo.findById(req.category)
-
-            // } catch (err) {
-            //     return left(new Category404())
-            // }
-
             const restaurantOrError = Restaurant.create(dto)
             if (restaurantOrError.isFailure) {
                 return left(restaurantOrError)
