@@ -5,16 +5,16 @@ import { Restaurant } from "../domain/restaurant"
 export class RestaurantMapper {
     public static toDomain(raw: any): Restaurant {
         const restaurantOrError = Restaurant.create({
-            name: raw._doc.name,
-            city: raw._doc.city,
-            ownerName: raw._doc.ownerName,
-            ownerSurname: raw._doc.ownerSurname,
-            phoneNumber: raw._doc.phoneNumber,
-            categories: raw._doc.categories ?? [],
-            product: raw._doc.product,
-            id: raw._doc._id
+            name: raw.name,
+            city: raw.city,
+            ownerName: raw.ownerName,
+            ownerSurname: raw.ownerSurname,
+            phoneNumber: raw.phoneNumber,
+            categories: raw.categories ?? [],
+            product: raw.product,
+            _id: raw._id
         })
-        return restaurantOrError.isSuccess ? restaurantOrError.getValue() : restaurantOrError.getErrorValue()
+        return restaurantOrError.isSuccess ? restaurantOrError.getValue().props as Restaurant : restaurantOrError.getErrorValue()
     }
     public static toPersistence(restaurant: Restaurant): any {
         return {

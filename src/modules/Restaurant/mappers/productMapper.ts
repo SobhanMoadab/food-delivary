@@ -9,7 +9,7 @@ export class ProductMapper {
             fee: raw._doc.fee,
             recipe: raw._doc.recipe,
             discountedFee: raw._doc.discountedFee,
-            id: raw._doc._id
+            _id: raw._doc._id
         })
 
         return productOrError.isSuccess ? productOrError.getValue() : productOrError.getErrorValue()

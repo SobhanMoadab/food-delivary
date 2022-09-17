@@ -7,7 +7,7 @@ import { Product } from "./product";
 
 
 export interface CategoryProps {
-    id?: string
+    _id?: string
     name: string
     products?: Product[]
 }

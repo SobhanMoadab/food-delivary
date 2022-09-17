@@ -11,7 +11,7 @@ import { Product } from "./product";
 
 
 export interface RestaurantProps {
-    id?: string
+    _id?: string
     name: string
     city: string
     ownerName: string

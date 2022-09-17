@@ -6,10 +6,10 @@
   "scripts": {
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
-    "test": "jest --watchAll"
+    "test": "vitest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sobhan m <veiledassassin99@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -44,6 +44,8 @@
     "reflect-metadata": "^0.1.13",
     "ts-jest": "^28.0.8",
     "uuid": "^8.3.2",
-    "validator": "^13.7.0"
-  }
+    "validator": "^13.7.0",
+    "vitest": "^0.23.2"
+  },
+  "repository": "https://github.com/SobhanMoadab/food-delivary.git"
 }

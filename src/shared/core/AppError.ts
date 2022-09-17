@@ -16,3 +16,11 @@ export class UnexpectedError extends Result<UseCaseError> {
         return new UnexpectedError(err);
     }
 }
+export class NotFound404 extends Result<UseCaseError> {
+    public constructor() {
+        super(false, {
+            message: `Could not find anything.`
+        } as UseCaseError)
+        console.log(`[AppError]: An unexpected error occurred`);
+    }
+}

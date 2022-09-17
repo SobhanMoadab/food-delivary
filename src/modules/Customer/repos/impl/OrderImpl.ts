@@ -25,7 +25,7 @@ export class OrderRepository implements IOrderRepository {
     }
 
     async findById(id: string): Promise<Order> {
-        const order = await this._model.findById(id)
+        const order = await this._model.findById(id).lean()
         if (!order) throw new Error()
         return OrderMapper.toDomain({ ...order })
     }

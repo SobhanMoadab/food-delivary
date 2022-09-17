@@ -4,6 +4,7 @@ import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { Customer } from "../../domain/Customer";
 import { JWTToken, RefreshToken } from "../../domain/jwt";
+import { CustomerMapper } from "../../mappers/customerMapper";
 import { ICustomerRepository } from "../../repos/ICustomerRepository";
 import { IAuthService } from "../../services/authService";
 import { RegisterDTO, RegisterResponse } from "./RegisterDTO";
@@ -52,11 +53,12 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> 
             //         new RegisterErrors.DuplicateEmailError(customer.email)
             //     ) as Response;
             // }
+            const toPers = CustomerMapper.toPersistence(customer)
             await this.customerRepository.save(customer);
 
             const accessToken: JWTToken = this.authService.signJWT({
-                email: customer.email,
-                userId: customer.id
+                email: toPers.email,
+                userId: toPers.id
             })
 
             const refreshToken: RefreshToken = this.authService.createRefreshToken()

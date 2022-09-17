@@ -20,9 +20,7 @@ export class Customer extends Entity<CustomerProps> {
     constructor(props: CustomerProps) {
         super(props)
     }
-    get id(): UniqueEntityID {
-        return this._id
-    }
+    
     get phoneNumber(): number {
         return this.props.phoneNumber
     }

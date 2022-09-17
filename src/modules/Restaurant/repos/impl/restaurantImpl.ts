@@ -1,4 +1,5 @@
 import { Model } from "mongoose";
+import { m } from "vitest/dist/index-60e2a8e1";
 import { Restaurant, RestaurantProps } from "../../domain/restaurant";
 import { RestaurantMapper } from "../../mappers/restaurantMapper";
 import { IRestaurantRepository } from "../IRestaurantRepository";
@@ -20,9 +21,18 @@ export class RestaurantRepository implements IRestaurantRepository {
     }
 
     async findById(id: string): Promise<Restaurant> {
-        const restaurant = await this._model.findById(id).populate({ path: 'categories' })
-        console.log({ restaurant })
+        const restaurant = await this._model.findById(id).lean().populate({
+            path: 'categories',
+            populate: { path: 'products' }
+        })
+        console.log({ 44444: restaurant })
+        if (restaurant?.categories) console.log({ 55555: restaurant.categories })
         if (!restaurant) throw new Error()
         return RestaurantMapper.toDomain({ ...restaurant })
+    }
+
+    async getAllRestaurants(): Promise<Restaurant[]> {
+        const restaurants = await this._model.find().lean()
+        return restaurants.map((restaurant) => RestaurantMapper.toDomain(restaurant))
     }
 }
