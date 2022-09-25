@@ -5,6 +5,7 @@ import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { Category } from "../../domain/category";
 import { Product } from "../../domain/product";
+import { ProductMapper } from "../../mappers/productMapper";
 import { ICategoryRepository } from "../../repos/ICategoryRepository";
 import { IProductRepository } from "../../repos/IProductRepository";
 import { Category404 } from "../createCategory/CreateCategoryErrors";
@@ -49,9 +50,8 @@ export class CreateProductUseCase implements UseCase<CreateProductDTO, Promise<R
             } catch (err) {
                 return left(new Category404())
             }
-
-
-            await this.productRepository.save(product.props as Product)
+            const toPers = ProductMapper.toPersistence(product)
+            await this.productRepository.save(toPers)
             return right(Result.ok<void>())
 
         } catch (error) {

@@ -25,8 +25,6 @@ export class RestaurantRepository implements IRestaurantRepository {
             path: 'categories',
             populate: { path: 'products' }
         })
-        console.log({ 44444: restaurant })
-        if (restaurant?.categories) console.log({ 55555: restaurant.categories })
         if (!restaurant) throw new Error()
         return RestaurantMapper.toDomain({ ...restaurant })
     }

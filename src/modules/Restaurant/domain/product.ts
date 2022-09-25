@@ -16,7 +16,6 @@ export interface ProductProps {
 }
 
 export class Product extends Entity<ProductProps> {
-    id: any;
 
     constructor(props: ProductProps) {
         super(props)

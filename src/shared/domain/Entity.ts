@@ -2,8 +2,8 @@ import { UniqueEntityID } from "./UniqueEntityID";
 
 export abstract class Entity<T> {
 
-    public readonly _id?: UniqueEntityID;
-    public  props: T;
+    protected readonly _id?: UniqueEntityID;
+    public readonly props: T;
 
     constructor(props: T, id?: UniqueEntityID) {
         this.props = props;
