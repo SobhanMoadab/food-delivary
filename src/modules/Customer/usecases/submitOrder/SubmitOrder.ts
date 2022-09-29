@@ -24,15 +24,12 @@ type Response = Either<
 
 export class SubmitOrderUseCase implements UseCase<SubmitOrderDTO, Promise<Response>> {
 
-
     constructor(
         public orderRepository: IOrderRepository,
         public restaurantRepository: IRestaurantRepository,
         public productRepository: IProductRepository,
 
-    ) {
-
-    }
+    ) { }
 
     async execute(req: SubmitOrderDTO): Promise<Response> {
 
