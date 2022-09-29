@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/index",
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
     "test": "jest --watchAll",
