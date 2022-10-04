@@ -1,6 +1,6 @@
 import { Model } from "mongoose";
 import { Category, CategoryProps } from "../../domain/category";
-import { CategoryMapper } from "../../mappers/CategoryMapper";
+import { CategoryMapper } from "../../mappers/categoryMapper";
 import { ICategoryRepository } from "../ICategoryRepository";
 
 
