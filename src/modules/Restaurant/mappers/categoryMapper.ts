@@ -9,4 +9,11 @@ export class CategoryMapper {
         })
         return categoryOrError.isSuccess ? categoryOrError.getValue() : categoryOrError.getErrorValue()
     }
+
+    public static toPersistence(category: Category): any {
+        return {
+            name: category.name,
+            products: category.products
+        }
+    }
 }   

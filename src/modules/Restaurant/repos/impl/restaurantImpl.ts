@@ -1,5 +1,4 @@
 import { Model } from "mongoose";
-import { m } from "vitest/dist/index-60e2a8e1";
 import { Restaurant, RestaurantProps } from "../../domain/restaurant";
 import { RestaurantMapper } from "../../mappers/restaurantMapper";
 import { IRestaurantRepository } from "../IRestaurantRepository";

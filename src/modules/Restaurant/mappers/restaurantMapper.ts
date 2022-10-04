@@ -12,7 +12,7 @@ export class RestaurantMapper {
             phoneNumber: raw.phoneNumber,
             categories: raw.categories ?? [],
             product: raw.product,
-            _id: raw._id
+            id: raw._id
         })
         return restaurantOrError.isSuccess ? restaurantOrError.getValue().props as Restaurant : restaurantOrError.getErrorValue()
     }
