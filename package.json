@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/src/index.js",
+    "start": "node ./build/src/index.js",
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
     "test": "jest",
