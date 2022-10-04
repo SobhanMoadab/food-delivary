@@ -8,7 +8,7 @@ import { Restaurant } from "../../Restaurant/domain/restaurant";
 
 
 export interface OrderProps {
-    id?: ObjectId
+    id?: ObjectId | string
     product: Product,
     // customer: Customer,
     restaurant: Restaurant,

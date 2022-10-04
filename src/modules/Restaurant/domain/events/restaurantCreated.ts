@@ -1,15 +1,13 @@
+import { ObjectID } from "bson";
 import { IDomainEvent } from "../../../../shared/domain/events/IDomainEvent";
 import { UniqueEntityID } from "../../../../shared/domain/UniqueEntityID";
-import { RestaurantOwner } from "../restaurant";
+import { Restaurant } from "../restaurant";
 
 
 export class RestaurantCreated implements IDomainEvent {
-
-    public dateTimeOccurred: Date = new Date();
     
-    constructor(public restaurantOwner: RestaurantOwner) { }
+    public dateTimeOccurred: Date = new Date();
 
-    getAggregateId(): UniqueEntityID {
-        return this.restaurantOwner.id
-    }
+    constructor(public restaurant: Restaurant) { }
+ 
 }

@@ -1,4 +1,5 @@
-import { JWTClaims, JWTToken, RefreshToken } from "../../domain/jwt";
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+import { JWTClaims, JWTToken, RefreshToken } from "../../domain/Jwt";
 import { IAuthService } from "../authService";
 import randtoken from 'rand-token'
 import { AbstractRedisClient } from "./redisAbstractClient";

@@ -4,7 +4,7 @@ import { ICustomerRepository } from "../ICustomerRepository";
 export class InMemoryCustomerRepository implements ICustomerRepository {
     customers: Customer[] = []
 
-    public async create(customer: Customer): Promise<void> {
+    public async save(customer: Customer): Promise<void> {
         this.customers.push(customer)
         return
     }

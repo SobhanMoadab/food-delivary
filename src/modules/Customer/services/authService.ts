@@ -1,5 +1,5 @@
 import { Customer } from "../domain/Customer";
-import { JWTClaims, JWTToken, RefreshToken } from "../domain/jwt";
+import { JWTClaims, JWTToken, RefreshToken } from "../domain/Jwt";
 
 
 export interface IAuthService {

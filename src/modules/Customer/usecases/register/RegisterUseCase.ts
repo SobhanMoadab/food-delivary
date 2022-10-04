@@ -3,7 +3,7 @@ import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { Customer } from "../../domain/Customer";
-import { JWTToken, RefreshToken } from "../../domain/jwt";
+import { JWTToken, RefreshToken } from "../../domain/Jwt";
 import { CustomerMapper } from "../../mappers/customerMapper";
 import { ICustomerRepository } from "../../repos/ICustomerRepository";
 import { IAuthService } from "../../services/authService";

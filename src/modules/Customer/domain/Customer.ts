@@ -3,7 +3,7 @@ import { Guard } from "../../../shared/core/Guard";
 import { left, Result } from "../../../shared/core/Result";
 import { Entity } from "../../../shared/domain/Entity";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
-import { JWTToken, RefreshToken } from "./jwt";
+import { JWTToken, RefreshToken } from "./Jwt";
 
 export interface CustomerProps {
     id?: string,
@@ -20,7 +20,9 @@ export class Customer extends Entity<CustomerProps> {
     constructor(props: CustomerProps) {
         super(props)
     }
-    
+    get id(): string | undefined {
+        return this.props.id
+    }
     get phoneNumber(): number {
         return this.props.phoneNumber
     }

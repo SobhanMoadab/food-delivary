@@ -11,7 +11,7 @@ import { Product } from "./product";
 
 
 export interface RestaurantProps {
-    _id?: string
+    id?: string | ObjectId
     name: string
     city: string
     ownerName: string
@@ -22,11 +22,12 @@ export interface RestaurantProps {
 }
 
 export class Restaurant extends Entity<RestaurantProps> {
-    id: any;
     constructor(props: RestaurantProps) {
         super(props)
     }
-
+    get id(): string | ObjectId | undefined {
+        return this.props.id
+    }
     get name(): string {
         return this.props.name
     }
@@ -42,7 +43,7 @@ export class Restaurant extends Entity<RestaurantProps> {
     get phoneNumber(): number {
         return this.props.phoneNumber
     }
-    get product(): Product | null{
+    get product(): Product | null {
 
         return this.props.product ?? null
     }

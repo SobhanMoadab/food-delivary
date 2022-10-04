@@ -20,7 +20,9 @@ export class Product extends Entity<ProductProps> {
     constructor(props: ProductProps) {
         super(props)
     }
-    
+    get id(): string | undefined {
+        return this.props._id
+    }
     get name(): string {
         return this.props.name
     }

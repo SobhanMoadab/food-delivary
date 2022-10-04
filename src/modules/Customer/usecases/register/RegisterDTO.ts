@@ -1,4 +1,4 @@
-import { JWTToken, RefreshToken } from "../../domain/jwt"
+import { JWTToken, RefreshToken } from "../../domain/Jwt"
 
 export interface RegisterDTO {
     name: string,
