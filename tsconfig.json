@@ -19,6 +19,6 @@
         "transform": "ts-auto-mock/transformer",
         "cacheBetweenTests": false
       }
-    ]
+    ],
   }
 }
