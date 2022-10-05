@@ -1,7 +1,8 @@
-import {  Model } from "mongoose";
+import { Model } from "mongoose";
 import { Customer, CustomerProps } from "../../domain/Customer";
 import { ICustomerRepository } from "../ICustomerRepository";
 import { plainToInstance } from "class-transformer";
+import { CustomerMapper } from "../../mappers/customerMapper";
 
 export class CustomerRepository implements ICustomerRepository {
 
@@ -11,8 +12,9 @@ export class CustomerRepository implements ICustomerRepository {
 
         this._model = schemaModel;
     }
-    async save({ name, address, email, phoneNumber }: Customer): Promise<void> {
-        await this._model.create({ name, address, email, phoneNumber })
+    async save(props: Customer): Promise<void> {
+        const toPers = CustomerMapper.toPersistence(props)
+        await this._model.create(toPers)
         return
     }
 

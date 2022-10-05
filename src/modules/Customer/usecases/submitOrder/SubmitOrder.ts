@@ -8,7 +8,6 @@ import { IProductRepository } from "../../../Restaurant/repos/IProductRepository
 import { IRestaurantRepository } from "../../../Restaurant/repos/IRestaurantRepository";
 import { Product404 } from "../../../Restaurant/usecases/createProduct/CreateProductErrors";
 import { Order } from "../../domain/Order";
-import { OrderMapper } from "../../mappers/orderMapper";
 import { IOrderRepository } from "../../repos/IOrderRepository";
 import { SubmitOrderDTO } from "./SubmitOrderDTO";
 import { RestaurantNotFoundError } from "./SubmitOrderErrors";
