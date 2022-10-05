@@ -1,12 +1,13 @@
 /* eslint-disable no-var */
 import { Guard } from "../../../shared/core/Guard";
-import { left, Result } from "../../../shared/core/Result";
-import { Entity } from "../../../shared/domain/Entity";
+import { Result } from "../../../shared/core/Result";
+import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
+import { CustomerId } from "./CustomerId";
 import { JWTToken, RefreshToken } from "./Jwt";
 
 export interface CustomerProps {
-    id?: string,
+    id?: UniqueEntityID,
     name: string,
     phoneNumber: number,
     email: string,
@@ -15,13 +16,13 @@ export interface CustomerProps {
     refreshToken?: RefreshToken;
 }
 
-export class Customer extends Entity<CustomerProps> {
+export class Customer extends AggregateRoot<CustomerProps> {
 
-    constructor(props: CustomerProps) {
-        super(props)
+    constructor(props: CustomerProps, id?: UniqueEntityID) {
+        super(props, id)
     }
-    get id(): string | undefined {
-        return this.props.id
+    get customerId(): CustomerId {
+        return CustomerId.create(this._id).getValue()
     }
     get phoneNumber(): number {
         return this.props.phoneNumber

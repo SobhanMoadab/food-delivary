@@ -19,7 +19,6 @@ type Response = Either<
 // 
 
 
-
 export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> {
 
     private customerRepository: ICustomerRepository
@@ -56,8 +55,8 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> 
             await this.customerRepository.save(customer);
 
             const accessToken: JWTToken = this.authService.signJWT({
-                email: toPers.email,
-                userId: toPers.id
+                email: customer.email,
+                userId: customer.id
             })
 
             const refreshToken: RefreshToken = this.authService.createRefreshToken()

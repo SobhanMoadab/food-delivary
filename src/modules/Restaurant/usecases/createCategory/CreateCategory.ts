@@ -5,7 +5,6 @@ import { Category } from "../../domain/category";
 import { CreateCategoryDTO } from "./CreateCategoryDTO";
 import { Category404, DuplicateCategoryName } from "./CreateCategoryErrors";
 import { ICategoryRepository } from '../../repos/ICategoryRepository'
-import { CategoryMapper } from "../../mappers/categoryMapper";
 
 
 type Response = Either<
