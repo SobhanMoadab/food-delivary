@@ -46,12 +46,12 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> 
 
         try {
             const customer = customerOrError.getValue()
-            // const userAlreadyExists = await this.customerRepository.exists(customer.email)
-            // if (userAlreadyExists) {
-            //     return left(
-            //         new RegisterErrors.DuplicateEmailError(customer.email)
-            //     ) as Response;
-            // }
+            const userAlreadyExists = await this.customerRepository.exists(customer.email)
+            if (userAlreadyExists) {
+                return left(
+                    new DuplicateEmailError(customer.email)
+                ) as Response;
+            }
             await this.customerRepository.save(customer);
 
             const accessToken: JWTToken = this.authService.signJWT({
