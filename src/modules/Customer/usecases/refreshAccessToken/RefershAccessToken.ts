@@ -1,10 +1,12 @@
 import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
+import { Customer } from "../../domain/Customer";
 import { JWTToken } from "../../domain/Jwt";
 import { ICustomerRepository } from "../../repos/ICustomerRepository";
 import { IAuthService } from "../../services/authService";
 import { RefreshAccessTokenDTO } from "./RefershAccessTokenDTO";
+import { RefreshTokenNotFound } from "./RefershAccessTokenErrors";
 
 
 type Response = Either<
@@ -14,14 +16,44 @@ type Response = Either<
 >
 
 export class RefreshAccessToken implements UseCase<RefreshAccessTokenDTO, Promise<Response>> {
+
+
     constructor(
         public customerRepo: ICustomerRepository,
-        public serviceRepo: IAuthService
+        public authService: IAuthService
     ) { }
+
     async execute(req: RefreshAccessTokenDTO): Promise<Response> {
+        let customerName: string
+        let customer: Customer
+
         const { refreshToken } = req
         try {
-            return right(Result.ok<any>())
+
+            try {
+                // get customer name from refresh token
+                customerName = await this.authService.getUserNameFromRefreshToken(refreshToken)
+            } catch (err) {
+                return left(new RefreshTokenNotFound())
+            }
+
+            try {
+                // get customer  from customer name
+                customer = await this.customerRepo.getCustomerByName(customerName)
+            } catch (err) {
+                return left(new RefreshTokenNotFound())
+            }
+
+            const accessToken: JWTToken = this.authService.signJWT({
+                email: customer.email,
+                userId: customer.id
+            })
+
+            customer.setAccessToken(accessToken, refreshToken)
+
+            await this.authService.saveAuthenticatedCustomer(customer)
+
+            return right(Result.ok<JWTToken>(accessToken))
 
         } catch (err) {
             return left(new UnexpectedError(err));

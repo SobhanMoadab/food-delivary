@@ -10,5 +10,5 @@ export interface IAuthService {
     saveAuthenticatedCustomer(customer: Customer): Promise<void>;
     // deAuthenticateUser(username: string): Promise<void>;
     // refreshTokenExists(refreshToken: RefreshToken): Promise<boolean>;
-    // getUserNameFromRefreshToken(refreshToken: RefreshToken): Promise<string>;
+    getUserNameFromRefreshToken(refreshToken: RefreshToken): Promise<string>;
 }
