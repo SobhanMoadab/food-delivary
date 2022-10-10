@@ -60,7 +60,6 @@ export class Restaurant extends Entity<RestaurantProps> {
             { argument: props.ownerSurname, argumentName: 'ownerSurname' },
             { argument: props.phoneNumber, argumentName: 'phoneNumber' }
         ])
-
         if (guardResult.isFailure) {
             return Result.fail<Restaurant>(guardResult.getErrorValue())
         }

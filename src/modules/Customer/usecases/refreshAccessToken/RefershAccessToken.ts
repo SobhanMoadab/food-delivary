@@ -26,7 +26,6 @@ export class RefreshAccessToken implements UseCase<RefreshAccessTokenDTO, Promis
     async execute(req: RefreshAccessTokenDTO): Promise<Response> {
         let customerName: string
         let customer: Customer
-
         const { refreshToken } = req
         try {
 

@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { RedisClientType } from "@redis/client";
 
 
 export abstract class AbstractRedisClient {
 
     protected client: RedisClientType;
-    private tokenExpiryTime: number = 604800;
+    private tokenExpiryTime = 604800;
 
     constructor(client: RedisClientType) {
         this.client = client;
@@ -17,12 +19,31 @@ export abstract class AbstractRedisClient {
     // }
     public async set(key: string, value: any): Promise<any> {
         try {
-            await this.client.set(key, value)
-        } catch (error) {
-            console.log({ error })
+            const result = await this.client.set(key, value)
+            return result
+
+        } catch (err) {
+            throw new Error()
+        }
+
+    }
+    public getAllKeys(wildcard: string): Promise<string[]> {
+        return new Promise((rej, res) => {
+            this.client.keys(wildcard)
+                .then(val => res(val))
+                .catch(err => rej(err))
+        })
+
+    }
+    public async getOne(key: string): Promise<string> {
+        try {
+            const result = await this.client.get(key)
+            if (!result || result === null) throw new Error()
+            return result
+        } catch (err) {
+            throw new Error()
         }
     }
-
     // public testConnection(): Promise<any> {
     //     return new Promise((resolve, reject) => {
     //         this.client.set('test', 'connected',

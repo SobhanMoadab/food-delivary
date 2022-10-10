@@ -13,7 +13,7 @@ export class RegisterController extends BaseController {
         super()
         this.useCase = useCase
     }
-   
+
     async executeImpl(req: DecodedExpressRequest, res: Response) {
         let dto: RegisterDTO = req.body as RegisterDTO;
         dto = {
@@ -24,10 +24,11 @@ export class RegisterController extends BaseController {
         }
         try {
             const result = await this.useCase.execute(dto)
-            const token = result.value.getValue()
-            if (result.isLeft()) {
-                const error = result.value;
+            if (result.isRight()) {
+                return res.status(201).json({ status: 201, result: result.value.getValue() })
 
+            } else if (result.isLeft()) {
+                const error = result.value;
                 switch (error.constructor) {
                     case DuplicateEmailError:
                         return res.status(400).json({ status: 400, msg: error.getErrorValue() })
@@ -36,10 +37,7 @@ export class RegisterController extends BaseController {
                     default:
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })
                 }
-            } else {
-                return res.status(201).json({ status: 201, result: token })
             }
-
         } catch (err) {
             return res.status(500).json({ status: 500, msg: 'Something went wrong' })
         }

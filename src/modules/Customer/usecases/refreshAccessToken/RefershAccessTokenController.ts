@@ -16,19 +16,13 @@ export class RefreshAccessTokenController extends BaseController {
     }
 
     async executeImpl(req: DecodedExpressRequest, res: Response) {
-
-        let dto: RefreshAccessTokenDTO = req.body as RefreshAccessTokenDTO;
-
-        dto = {
-            refreshToken: dto.refreshToken
-        }
+        const dto: RefreshAccessTokenDTO = req.body as RefreshAccessTokenDTO;
 
         try {
             const result = await this.useCase.execute(dto)
-            const token = result.value.getValue()
+            
             if (result.isLeft()) {
                 const error = result.value;
-
                 switch (error.constructor) {
                     case RefreshTokenNotFound:
                         return res.status(400).json({ status: 400, msg: error.getErrorValue() })
@@ -38,10 +32,12 @@ export class RefreshAccessTokenController extends BaseController {
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })
                 }
             } else {
-                return res.status(201).json({ status: 201, result: token })
+
+                return res.status(201).json({ status: 201, result: 'ok' })
             }
 
         } catch (err) {
+            console.log({ err })
             return res.status(500).json({ status: 500, msg: 'Something went wrong' })
         }
     }

@@ -4,7 +4,6 @@ import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { Customer } from "../../domain/Customer";
 import { JWTToken, RefreshToken } from "../../domain/Jwt";
-import { CustomerMapper } from "../../mappers/customerMapper";
 import { ICustomerRepository } from "../../repos/ICustomerRepository";
 import { IAuthService } from "../../services/authService";
 import { RegisterDTO, RegisterResponse } from "./RegisterDTO";
@@ -14,11 +13,8 @@ type Response = Either<
     DuplicateEmailError |
     UnexpectedError |
     Result<any>,
-    Result<void>
+    Result<RegisterResponse>
 >
-// 
-
-
 export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> {
 
     private customerRepository: ICustomerRepository
@@ -39,7 +35,6 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> 
         }
         const customerOrError = Customer.create(dto)
         const dtoResult = Result.combine([customerOrError])
-
         if (customerOrError.isFailure) {
             return left(Result.fail<void>(dtoResult.getErrorValue())) as Response
         }
@@ -63,7 +58,6 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> 
 
             customer.setAccessToken(accessToken, refreshToken);
             await this.authService.saveAuthenticatedCustomer(customer);
-
             return right(Result.ok<RegisterResponse>({
                 accessToken, refreshToken
             })) as Response
