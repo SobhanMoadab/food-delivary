@@ -27,12 +27,14 @@ export abstract class AbstractRedisClient {
         }
 
     }
-    public getAllKeys(wildcard: string): Promise<string[]> {
-        return new Promise((rej, res) => {
-            this.client.keys(wildcard)
-                .then(val => res(val))
-                .catch(err => rej(err))
-        })
+    public async getAllKeys(wildcard: string): Promise<string[]> {
+        try {
+            const result = await this.client.keys(`${wildcard}*`) 
+            return result
+
+        } catch (err) {
+            throw new Error()
+        }
 
     }
     public async getOne(key: string): Promise<string> {

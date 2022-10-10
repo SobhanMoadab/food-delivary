@@ -20,8 +20,11 @@ export class RefreshAccessTokenController extends BaseController {
 
         try {
             const result = await this.useCase.execute(dto)
-            
-            if (result.isLeft()) {
+            console.log({ result })
+            if (result.isRight()) {
+                return res.status(201).json({ status: 201, result: result.value.getValue() })
+
+            } else if (result.isLeft()) {
                 const error = result.value;
                 switch (error.constructor) {
                     case RefreshTokenNotFound:
@@ -31,9 +34,6 @@ export class RefreshAccessTokenController extends BaseController {
                     default:
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })
                 }
-            } else {
-
-                return res.status(201).json({ status: 201, result: 'ok' })
             }
 
         } catch (err) {

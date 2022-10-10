@@ -31,8 +31,8 @@ export class CustomerRepository implements ICustomerRepository {
         return plainToInstance(Customer, list)
     }
 
-    async getCustomerByName(name: string): Promise<Customer> {
-        const customer = await this._model.find({ name })
+    async getCustomerByEmail(email: string): Promise<Customer> {
+        const customer = await this._model.findOne({ email })
         if (!customer) throw new Error('Not found')
         return CustomerMapper.toDomain(customer)
 

@@ -24,21 +24,21 @@ export class RefreshAccessToken implements UseCase<RefreshAccessTokenDTO, Promis
     ) { }
 
     async execute(req: RefreshAccessTokenDTO): Promise<Response> {
-        let customerName: string
+        let customerEmail: string
         let customer: Customer
         const { refreshToken } = req
         try {
 
             try {
-                // get customer name from refresh token
-                customerName = await this.authService.getUserNameFromRefreshToken(refreshToken)
+                // get customer email from refresh token
+                customerEmail = await this.authService.getEmailFromRefreshToken(refreshToken)
             } catch (err) {
                 return left(new RefreshTokenNotFound())
             }
 
             try {
                 // get customer  from customer name
-                customer = await this.customerRepo.getCustomerByName(customerName)
+                customer = await this.customerRepo.getCustomerByEmail(customerEmail)
             } catch (err) {
                 return left(new RefreshTokenNotFound())
             }

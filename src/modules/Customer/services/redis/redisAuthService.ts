@@ -15,7 +15,7 @@ export class RedisAuthService extends AbstractRedisClient implements IAuthServic
         super(redisClient)
     }
 
-    public async getUserNameFromRefreshToken(refreshToken: string): Promise<string> {
+    public async getEmailFromRefreshToken(refreshToken: string): Promise<string> {
         const keys = await this.getAllKeys(`*${refreshToken}`)
         const exists = keys.length !== 0
         if (!exists) throw new Error("Username not found for refresh token.");
@@ -44,7 +44,7 @@ export class RedisAuthService extends AbstractRedisClient implements IAuthServic
     }
 
     public addToken(username: string, refreshToken: RefreshToken, token: JWTToken): Promise<any> {
-        
+
         return this.set(this.constructKey(username, refreshToken), token);
     }
     public async saveAuthenticatedCustomer(customer: Customer): Promise<void> {
