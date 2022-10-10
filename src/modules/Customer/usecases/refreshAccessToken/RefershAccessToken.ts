@@ -42,16 +42,13 @@ export class RefreshAccessToken implements UseCase<RefreshAccessTokenDTO, Promis
             } catch (err) {
                 return left(new RefreshTokenNotFound())
             }
-
             const accessToken: JWTToken = this.authService.signJWT({
                 email: customer.email,
                 userId: customer.id
             })
-
             customer.setAccessToken(accessToken, refreshToken)
 
             await this.authService.saveAuthenticatedCustomer(customer)
-
             return right(Result.ok<JWTToken>(accessToken))
 
         } catch (err) {
