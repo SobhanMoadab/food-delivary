@@ -44,7 +44,8 @@ describe('Middleware', () => {
 
     /* if i provide no token it should throw error */
     it('should end request if token does not exists', async () => {
-        await middleware.ensureAuthenticated(request, response, next)
+        const mw = middleware.ensureAuthenticated()
+        await mw(request, response, next)
         expect(spy).toHaveBeenCalledTimes(1)
     })
 

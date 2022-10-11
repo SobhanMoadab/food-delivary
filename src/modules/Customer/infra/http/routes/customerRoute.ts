@@ -2,7 +2,7 @@
 import express from 'express'
 import { createRefreshAccessTokenController } from '../../../usecases/refreshAccessToken'
 import { createRegisterController } from '../../../usecases/register'
-import { middleware } from '../../../../../shared/infra/http/utils'
+import { middleware } from '../../../../../shared/infra/http'
 const customerRouter = express.Router()
 
 customerRouter.get('/', middleware.ensureAuthenticated(), (req, res) => res.send('hellooo guyssss'))

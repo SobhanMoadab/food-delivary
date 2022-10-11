@@ -16,4 +16,11 @@ export class InMemoryCustomerRepository implements ICustomerRepository {
     public async list(): Promise<Customer[]> {
         return [...this.customers]
     }
+    public async getCustomerByEmail(email: string): Promise<Customer> {
+        const foundedCustomer = this.customers.find((customer) => customer.email === email)
+        return new Promise((resolve, reject) => {
+            if (foundedCustomer) return resolve(foundedCustomer)
+            else return reject()
+        })
+    }
 }

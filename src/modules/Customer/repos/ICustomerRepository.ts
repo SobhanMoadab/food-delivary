@@ -4,5 +4,5 @@ export interface ICustomerRepository {
     save(customer: Customer): Promise<void>
     exists(email: string): Promise<boolean>
     list(): Promise<Customer[]>
-    getCustomerByEmail(name: string): Promise<Customer>
+    getCustomerByEmail(email: string): Promise<Customer>
 }
