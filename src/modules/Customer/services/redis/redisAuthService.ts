@@ -14,7 +14,9 @@ export class RedisAuthService extends AbstractRedisClient implements IAuthServic
     constructor(redisClient: RedisClientType) {
         super(redisClient)
     }
-
+    public decodeJWT(token: string): Promise<JWTClaims> {
+        throw new Error()
+    }
     public async getEmailFromRefreshToken(refreshToken: string): Promise<string> {
         const keys = await this.getAllKeys(`*${refreshToken}`)
         const exists = keys.length !== 0

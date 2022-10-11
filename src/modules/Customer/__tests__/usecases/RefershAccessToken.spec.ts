@@ -55,12 +55,15 @@ describe('Refersh access Token', () => {
       createRefreshToken: jest.fn(),
       getEmailFromRefreshToken: jest.fn().mockReturnValueOnce({ email: 'test@test.com' }),
       saveAuthenticatedCustomer: jest.fn(),
-      signJWT: jest.fn().mockReturnValueOnce(accessToken)
+      signJWT: jest.fn().mockReturnValueOnce(accessToken),
+      decodeJWT: jest.fn()
     }
+
     useCase = new RefreshAccessToken(customerRepo, authService)
     req = {
       refreshToken: crypto.randomBytes(20).toString('hex')
     }
+    
   })
 
 
