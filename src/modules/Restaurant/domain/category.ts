@@ -1,29 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
-import { Entity } from "../../../shared/domain/Entity";
+import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { Product } from "./product";
+import { CategoryId } from "./categoryId";
+import { Products } from "./products";
+import { ProductCreated } from "./events/ProductCreated";
 
 
 export interface CategoryProps {
-    _id?: string
     name: string
-    products?: Product[]
+    products?: Products
 }
 
-export class Category extends Entity<CategoryProps> {
+export class Category extends AggregateRoot<CategoryProps> {
 
     constructor(props: CategoryProps, id?: UniqueEntityID) {
-        super(props)
+        super(props, id)
     }
-
+    get categoryId(): CategoryId {
+        return CategoryId.create(this._id).getValue()
+    }
     get name(): string {
         return this.props.name
     }
 
-    get products(): Product[] | null {
-        return this.props.products ?? null
+    get products(): Products {
+        return this.props.products!
     }
 
     public static create(props: CategoryProps, id?: UniqueEntityID): Result<Category> {
@@ -35,5 +39,11 @@ export class Category extends Entity<CategoryProps> {
             const newCategory = new Category(props, id)
             return Result.ok<Category>(newCategory)
         }
+    }
+
+    public addProduct(product: Product): Result<void> {
+        this.props.products?.add(product)
+        this.addDomainEvent(new ProductCreated(this, product));
+        return Result.ok<void>();
     }
 }

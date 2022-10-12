@@ -10,7 +10,6 @@ export class Middleware {
         return res.status(status).send({ message })
     }
     public ensureAuthenticated() {
-
         return async (req: Request, res: Response, next: NextFunction) => {
             const token = req.headers['authorization']
             if (!token) {

@@ -1,13 +1,10 @@
-import { ObjectId } from "mongodb";
 import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
-import { Entity } from "../../../shared/domain/Entity";
-import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
-import { Category } from "./category";
+import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
+import { ProductId } from "./productId";
 
 
 export interface ProductProps {
-    _id?: string
     name: string,
     fee: number,
     recipe: string,
@@ -15,13 +12,13 @@ export interface ProductProps {
     category: string
 }
 
-export class Product extends Entity<ProductProps> {
+export class Product extends AggregateRoot<ProductProps> {
 
     constructor(props: ProductProps) {
         super(props)
     }
-    get id(): string | undefined {
-        return this.props._id
+    get productId(): ProductId {
+        return ProductId.create(this._id).getValue()
     }
     get name(): string {
         return this.props.name

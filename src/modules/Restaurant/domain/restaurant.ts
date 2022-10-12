@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ObjectId } from "mongodb";
 import { Guard } from "../../../shared/core/Guard";
-import { left, Result } from "../../../shared/core/Result";
+import { Result } from "../../../shared/core/Result";
 import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
-import { Entity } from "../../../shared/domain/Entity";
-import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { Category } from "./category";
 import { RestaurantCreated } from "./events/restaurantCreated";
 import { Product } from "./product";
+import { Products } from "./products";
+import { RestaurantId } from "./RestaurantId";
 
 
 export interface RestaurantProps {
@@ -17,16 +17,16 @@ export interface RestaurantProps {
     ownerName: string
     ownerSurname: string
     phoneNumber: number
-    product?: Product
+    products?: Products
     categories?: Category[]
 }
 
-export class Restaurant extends Entity<RestaurantProps> {
+export class Restaurant extends AggregateRoot<RestaurantProps> {
     constructor(props: RestaurantProps) {
         super(props)
     }
-    get id(): string | ObjectId | undefined {
-        return this.props.id
+    get restaurantId(): RestaurantId {
+        return RestaurantId.create(this._id).getValue()
     }
     get name(): string {
         return this.props.name
@@ -43,9 +43,8 @@ export class Restaurant extends Entity<RestaurantProps> {
     get phoneNumber(): number {
         return this.props.phoneNumber
     }
-    get product(): Product | null {
-
-        return this.props.product ?? null
+    get products(): Products {
+        return this.props.products!
     }
     get categories(): Category[] {
         return this.props.categories ?? []

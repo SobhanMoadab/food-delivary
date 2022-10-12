@@ -7,7 +7,6 @@ import { CustomerId } from "./CustomerId";
 import { JWTToken, RefreshToken } from "./Jwt";
 
 export interface CustomerProps {
-    id?: UniqueEntityID,
     name: string,
     phoneNumber: number,
     email: string,

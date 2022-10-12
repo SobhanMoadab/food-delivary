@@ -11,7 +11,6 @@ export class CustomerMapper {
             phoneNumber: raw.phoneNumber,
             accessToken: raw.accessToken,
             refreshToken: raw.refreshToken,
-            id: raw._id
         })
         return customerOrError.isSuccess ? customerOrError.getValue() : customerOrError.getErrorValue()
     }
@@ -24,7 +23,6 @@ export class CustomerMapper {
             phoneNumber: props.phoneNumber,
             accessToken: props.accessToken,
             refreshToken: props.refreshToken,
-            id: props.id
         }
     }
 }   

@@ -11,10 +11,10 @@ export class RestaurantMapper {
             ownerSurname: raw.ownerSurname,
             phoneNumber: raw.phoneNumber,
             categories: raw.categories ?? [],
-            product: raw.product,
+            products: raw.products ?? [],
             id: raw._id
         })
-        return restaurantOrError.isSuccess ? restaurantOrError.getValue().props as Restaurant : restaurantOrError.getErrorValue()
+        return restaurantOrError.isSuccess ? restaurantOrError.getValue() : restaurantOrError.getErrorValue()
     }
     public static toPersistence(restaurant: Restaurant): any {
         return {
