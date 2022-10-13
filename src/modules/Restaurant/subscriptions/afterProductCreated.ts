@@ -16,14 +16,14 @@ export class afterProductCreated implements IHandle<IDomainEvent> {
     }
 
     public setupSubscriptions(): void {
-        DomainEvents.register()
+        // DomainEvents.register()
     }
 
     private async onProductCreated(event: ProductCreated): Promise<void> {
         try {
             await this.updateCategory.execute({ categoryId: event.product.categoryId.id.toString() })
         } catch (err) {
-            console.log(`[AfterProductCreated]: Failed to update category for {${event.category.name}}`);
+            console.log(`[AfterProductCreated]: Failed to update Restaurant for {${event.restaurant.name}}`);
         }
     }
 }

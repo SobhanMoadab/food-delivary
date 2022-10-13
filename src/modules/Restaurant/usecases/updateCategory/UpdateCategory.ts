@@ -7,6 +7,7 @@ import { IProductRepository } from "../../repos/IProductRepository";
 import { Category404 } from "../createCategory/CreateCategoryErrors";
 import { UpdateCategoryDTO } from "./UpdateCategoryDTO";
 import { has } from 'lodash'
+import { Product } from "../../domain/product";
 
 
 
