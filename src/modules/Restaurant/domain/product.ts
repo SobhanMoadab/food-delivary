@@ -1,6 +1,9 @@
 import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
 import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
+import { Entity } from "../../../shared/domain/Entity";
+import { Category } from "./category";
+import { CategoryId } from "./categoryId";
 import { ProductId } from "./productId";
 
 
@@ -9,10 +12,10 @@ export interface ProductProps {
     fee: number,
     recipe: string,
     discountedFee?: number
-    category: string
+    categoryId: CategoryId
 }
 
-export class Product extends AggregateRoot<ProductProps> {
+export class Product extends Entity<ProductProps> {
 
     constructor(props: ProductProps) {
         super(props)
@@ -35,8 +38,8 @@ export class Product extends AggregateRoot<ProductProps> {
         return this.props.fee
 
     }
-    get category(): string {
-        return this.props.category
+    get categoryId(): CategoryId {
+        return this.props.categoryId
 
     }
 
@@ -45,6 +48,7 @@ export class Product extends AggregateRoot<ProductProps> {
             { argument: props.name, argumentName: 'name' },
             { argument: props.fee, argumentName: 'fee' },
             { argument: props.recipe, argumentName: 'recipe' },
+            { argument: props.categoryId, argumentName: 'categoryId' },
         ])
 
         if (nullGuard.isFailure) {

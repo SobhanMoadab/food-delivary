@@ -4,7 +4,7 @@ import { ProductProps } from '../../../../../modules/Restaurant/domain/product'
 
 export const Product = new Schema<ProductProps>({
     name: { type: String, required: true },
-    category: { type: String },
+    categoryId: { type: Schema.Types.ObjectId, ref: "Category" },
     recipe: { type: String, required: true },
     fee: { type: Number, required: true },
     discountedFee: { type: Number },

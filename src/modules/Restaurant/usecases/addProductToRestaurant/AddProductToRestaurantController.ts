@@ -3,25 +3,26 @@ import { UnexpectedError } from "../../../../shared/core/AppError"
 import { BaseController } from "../../../../shared/infra/http/models/BaseController"
 import { DecodedExpressRequest } from "../../../Customer/infra/http/models/DecodedExpressRequest"
 import { Category404 } from "../createCategory/CreateCategoryErrors"
-import { CreateProductUseCase } from "./CreateProduct"
-import { CreateProductDTO } from "./CreateProductDTO"
+import { AddProductToRestaurantUseCase } from "./AddProductToRestaurant"
+import { AddProductToRestaurantUseCaseDTO } from "./AddProductToRestaurantDTO"
 
 
-export class CreateProductController extends BaseController {
+export class AddProductToRestaurantController extends BaseController {
 
-    constructor(private useCase: CreateProductUseCase) {
+    constructor(private useCase: AddProductToRestaurantUseCase) {
         super()
     }
 
     async executeImpl(req: DecodedExpressRequest, res: Response) {
-        let dto: CreateProductDTO = req.body as CreateProductDTO
+        let dto: AddProductToRestaurantUseCaseDTO = req.body as AddProductToRestaurantUseCaseDTO
 
         dto = {
             name: dto.name,
             recipe: dto.recipe,
-            category: dto.category,
+            categoryId: dto.categoryId,
             discountedFee: dto.discountedFee,
-            fee: dto.fee
+            fee: dto.fee,
+            restaurantId: dto.restaurantId
         }
         try {
             const result = await this.useCase.execute(dto)

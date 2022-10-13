@@ -3,9 +3,10 @@ import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { Category } from "../../domain/category";
 import { ICategoryRepository } from "../../repos/ICategoryRepository";
+import { IProductRepository } from "../../repos/IProductRepository";
 import { Category404 } from "../createCategory/CreateCategoryErrors";
 import { UpdateCategoryDTO } from "./UpdateCategoryDTO";
-
+import { has } from 'lodash'
 
 
 
@@ -17,10 +18,13 @@ type Response = Either<
 export class UpdateCategory implements UseCase<UpdateCategoryDTO, Promise<Response>> {
 
     constructor(
-        public categoryRepository: ICategoryRepository
+        public categoryRepository: ICategoryRepository,
+        public productRepository: IProductRepository
     ) { }
+
     public async execute(request: UpdateCategoryDTO): Promise<Response> {
         let category: Category
+        let product: Product
 
         const dto: UpdateCategoryDTO = {
             categoryId: request.categoryId
@@ -34,7 +38,6 @@ export class UpdateCategory implements UseCase<UpdateCategoryDTO, Promise<Respon
             } catch (err) {
                 return left(new Category404())
             }
-
 
             return right(Result.ok<void>())
         } catch (err) {

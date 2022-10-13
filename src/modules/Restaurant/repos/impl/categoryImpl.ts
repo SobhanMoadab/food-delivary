@@ -12,10 +12,30 @@ export class CategoryRepository implements ICategoryRepository {
 
         this._model = schemaModel;
     }
-    async save(props: Category): Promise<void> {
-        const toPers = CategoryMapper.toPersistence(props)
-        await this._model.create(toPers)
-        return
+
+    async exists(id: string): Promise<boolean> {
+        const founded = await this._model.findById(id)
+        if (founded) return true
+        else return false
+    }
+
+    async save(category: Category): Promise<void> {
+        const exists = await this.exists(category.categoryId.id.toString())
+        const isNew = !exists
+        const toPers = CategoryMapper.toPersistence(category)
+
+        if (isNew) {
+            await this._model.create(toPers)
+            return
+        // } else {
+            
+        //     await this._model.findByIdAndUpdate(category.categoryId.id.toString(),{
+        //         $push : {
+        //             products: 
+        //         }
+        //     })
+        }
+
     }
 
     async findById(id: string): Promise<Category> {

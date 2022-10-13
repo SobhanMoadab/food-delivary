@@ -2,6 +2,7 @@ import { DomainEvents } from "../../../shared/domain/events/DomainEvents";
 import { IDomainEvent } from "../../../shared/domain/events/IDomainEvent";
 import { IHandle } from "../../../shared/domain/events/IHandle";
 import { ProductCreated } from "../domain/events/ProductCreated";
+import { UpdateCategory } from "../usecases/updateCategory/UpdateCategory";
 
 
 
@@ -9,8 +10,9 @@ export class afterProductCreated implements IHandle<IDomainEvent> {
 
     private updateCategory: UpdateCategory
 
-    constructor() {
+    constructor(updateCategory: UpdateCategory) {
         this.setupSubscriptions()
+        this.updateCategory = updateCategory
     }
 
     public setupSubscriptions(): void {
@@ -19,7 +21,7 @@ export class afterProductCreated implements IHandle<IDomainEvent> {
 
     private async onProductCreated(event: ProductCreated): Promise<void> {
         try {
-            await this.updateCategory.execute()
+            await this.updateCategory.execute({ categoryId: event.product.categoryId.id.toString() })
         } catch (err) {
             console.log(`[AfterProductCreated]: Failed to update category for {${event.category.name}}`);
         }

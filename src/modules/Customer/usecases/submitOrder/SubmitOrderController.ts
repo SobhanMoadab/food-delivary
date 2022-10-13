@@ -1,7 +1,7 @@
 import { Response } from "express"
 import { UnexpectedError } from "../../../../shared/core/AppError"
 import { BaseController } from "../../../../shared/infra/http/models/BaseController"
-import { Product404 } from "../../../Restaurant/usecases/createProduct/CreateProductErrors"
+import { Product404 } from "../../../Restaurant/usecases/addProductToRestaurant/AddProductToRestaurantErrors"
 import { DecodedExpressRequest } from "../../infra/http/models/DecodedExpressRequest"
 import { SubmitOrderUseCase } from "./SubmitOrder"
 import { SubmitOrderDTO } from "./SubmitOrderDTO"

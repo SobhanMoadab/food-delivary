@@ -6,7 +6,7 @@ import { Product } from "../../../Restaurant/domain/product";
 import { Restaurant } from "../../../Restaurant/domain/restaurant";
 import { IProductRepository } from "../../../Restaurant/repos/IProductRepository";
 import { IRestaurantRepository } from "../../../Restaurant/repos/IRestaurantRepository";
-import { Product404 } from "../../../Restaurant/usecases/createProduct/CreateProductErrors";
+import { Product404 } from "../../../Restaurant/usecases/addProductToRestaurant/AddProductToRestaurantErrors";
 import { Order } from "../../domain/Order";
 import { IOrderRepository } from "../../repos/IOrderRepository";
 import { SubmitOrderDTO } from "./SubmitOrderDTO";

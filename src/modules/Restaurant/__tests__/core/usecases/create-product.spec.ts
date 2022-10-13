@@ -1,51 +1,70 @@
 /* eslint-disable prefer-const */
-import { IProductRepository } from '../../../repos/IProductRepository'
-import { CreateProductUseCase } from '../../../usecases/createProduct/CreateProduct'
+import { AddProductToRestaurantUseCase } from '../../../usecases/addProductToRestaurant/AddProductToRestaurant'
 import { ICategoryRepository } from '../../../repos/ICategoryRepository'
 // import { createMock } from 'ts-auto-mock'
-import { mock } from 'jest-mock-extended'
-import { CreateProductDTO } from '../../../usecases/createProduct/CreateProductDTO'
+import { AddProductToRestaurantUseCaseDTO } from '../../../usecases/addProductToRestaurant/AddProductToRestaurantDTO'
+import { IRestaurantRepository } from '../../../repos/IRestaurantRepository'
+import { Restaurant } from '../../../domain/restaurant'
 
 
 describe('create product use case', () => {
 
-    let productRepo: IProductRepository
+    let restaurantRepo: IRestaurantRepository
     let categoryRepo: ICategoryRepository
-    let useCase: CreateProductUseCase
+    let useCase: AddProductToRestaurantUseCase
+    let restaurant: Restaurant
 
     beforeEach(() => {
-        productRepo = mock<IProductRepository>()
-        categoryRepo = mock<ICategoryRepository>()
-        useCase = new CreateProductUseCase(productRepo, categoryRepo)
+        restaurant = Restaurant.create({
+            city: 'a',
+            name: 'a',
+            ownerName: 'a',
+            ownerSurname: 'a',
+            phoneNumber: 111111111111
+        }).getValue()
+
+        jest.clearAllMocks()
+        restaurantRepo = {
+            findById: jest.fn().mockReturnValue(restaurant),
+            getAllRestaurants: jest.fn(),
+            save: jest.fn(),
+
+        }
+        categoryRepo = {
+            findById: jest.fn().mockReturnValueOnce({
+                categoryId: 'test'
+            }),
+            save: jest.fn()
+        }
+        useCase = new AddProductToRestaurantUseCase(categoryRepo, restaurantRepo)
     })
 
-    it('should create product', async () => {
-        let dto: CreateProductDTO
-
+    it('should add product to restaurant', async () => {
+        let dto: AddProductToRestaurantUseCaseDTO
         dto = {
             name: 'test',
-            category: 'test',
+            categoryId: 'test',
             discountedFee: 3000,
             fee: 3000,
             recipe: 'test',
+            restaurantId: 'test'
         }
         const result = await useCase.execute(dto)
         expect(categoryRepo.findById).toBeCalled()
-        expect(productRepo.save).toBeCalled()
         expect(result.isRight()).toBeTruthy()
     })
     it('should return error when category does not exists', async () => {
-        let dto: CreateProductDTO
+        let dto: AddProductToRestaurantUseCaseDTO
         dto = {
             name: 'test',
-            category: '',
+            categoryId: '',
             discountedFee: 3000,
             fee: 3000,
             recipe: 'test',
+            restaurantId: 'test'
         }
         const result = await useCase.execute(dto)
         expect(categoryRepo.findById).toBeCalled()
-        expect(productRepo.save).toBeCalledTimes(1)
         expect(result.isRight()).toBeTruthy()
     })
 

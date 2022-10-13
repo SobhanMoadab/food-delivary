@@ -12,7 +12,6 @@ export class RestaurantMapper {
             phoneNumber: raw.phoneNumber,
             categories: raw.categories ?? [],
             products: raw.products ?? [],
-            id: raw._id
         })
         return restaurantOrError.isSuccess ? restaurantOrError.getValue() : restaurantOrError.getErrorValue()
     }

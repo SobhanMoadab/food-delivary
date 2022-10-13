@@ -7,6 +7,7 @@ import { Product } from "./product";
 import { CategoryId } from "./categoryId";
 import { Products } from "./products";
 import { ProductCreated } from "./events/ProductCreated";
+import { Entity } from "../../../shared/domain/Entity";
 
 
 export interface CategoryProps {
@@ -14,7 +15,7 @@ export interface CategoryProps {
     products?: Products
 }
 
-export class Category extends AggregateRoot<CategoryProps> {
+export class Category extends Entity<CategoryProps> {
 
     constructor(props: CategoryProps, id?: UniqueEntityID) {
         super(props, id)
@@ -40,10 +41,7 @@ export class Category extends AggregateRoot<CategoryProps> {
             return Result.ok<Category>(newCategory)
         }
     }
+    
 
-    public addProduct(product: Product): Result<void> {
-        this.props.products?.add(product)
-        this.addDomainEvent(new ProductCreated(this, product));
-        return Result.ok<void>();
-    }
+    
 }

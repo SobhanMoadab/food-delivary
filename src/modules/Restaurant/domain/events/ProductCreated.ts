@@ -2,6 +2,7 @@ import { IDomainEvent } from "../../../../shared/domain/events/IDomainEvent";
 import { UniqueEntityID } from "../../../../shared/domain/UniqueEntityID";
 import { Category } from "../category";
 import { Product } from "../product";
+import { Restaurant } from "../restaurant";
 
 
 export class ProductCreated implements IDomainEvent {
@@ -9,7 +10,7 @@ export class ProductCreated implements IDomainEvent {
     public dateTimeOccurred: Date;
 
     constructor(
-        public category: Category,
+        public restaurant: Restaurant,
         public product: Product
 
     ) {
@@ -17,6 +18,6 @@ export class ProductCreated implements IDomainEvent {
     }
 
     getAggregateId(): UniqueEntityID {
-        return this.category.id;
+        return this.restaurant.restaurantId.id;
     }
 }
