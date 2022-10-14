@@ -1,5 +1,5 @@
 import express from 'express'
-import { createProductController } from '../../../usecases/addProductToRestaurant'
+import { createProductController } from '../../../usecases/addProductToCategory'
 
 const productRouter = express.Router()
 

@@ -10,7 +10,7 @@ export class ProductCreated implements IDomainEvent {
     public dateTimeOccurred: Date;
 
     constructor(
-        public restaurant: Restaurant,
+        public category: Category,
         public product: Product
 
     ) {
@@ -18,6 +18,6 @@ export class ProductCreated implements IDomainEvent {
     }
 
     getAggregateId(): UniqueEntityID {
-        return this.restaurant.restaurantId.id;
+        return this.category.categoryId.id;
     }
 }

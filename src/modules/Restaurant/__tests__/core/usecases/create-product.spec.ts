@@ -1,8 +1,8 @@
 /* eslint-disable prefer-const */
-import { AddProductToRestaurantUseCase } from '../../../usecases/addProductToRestaurant/AddProductToRestaurant'
+import { AddProductToRestaurantUseCase } from '../../../usecases/addProductToCategory/addProductToCategory'
 import { ICategoryRepository } from '../../../repos/ICategoryRepository'
 // import { createMock } from 'ts-auto-mock'
-import { AddProductToRestaurantUseCaseDTO } from '../../../usecases/addProductToRestaurant/AddProductToRestaurantDTO'
+import { AddProductToRestaurantUseCaseDTO } from '../../../usecases/addProductToCategory/addProductToCategoryDTO'
 import { IRestaurantRepository } from '../../../repos/IRestaurantRepository'
 import { Restaurant } from '../../../domain/restaurant'
 

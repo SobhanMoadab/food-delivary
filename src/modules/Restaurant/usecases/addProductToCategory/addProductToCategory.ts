@@ -14,7 +14,7 @@ import { ICategoryRepository } from "../../repos/ICategoryRepository";
 import { IProductRepository } from "../../repos/IProductRepository";
 import { IRestaurantRepository } from "../../repos/IRestaurantRepository";
 import { Category404 } from "../createCategory/CreateCategoryErrors";
-import { AddProductToRestaurantUseCaseDTO } from "./AddProductToRestaurantDTO";
+import { AddProductToRestaurantDTO } from "./addProductToCategoryDTO";
 
 type Response = Either<
     Category404 |
@@ -24,7 +24,7 @@ type Response = Either<
 >
 
 
-export class AddProductToRestaurantUseCase implements UseCase<AddProductToRestaurantUseCaseDTO, Promise<Response>> {
+export class AddProductToRestaurantUseCase implements UseCase<AddProductToRestaurantDTO, Promise<Response>> {
 
 
     constructor(
@@ -33,42 +33,42 @@ export class AddProductToRestaurantUseCase implements UseCase<AddProductToRestau
 
     ) { }
 
-    public async execute(req: AddProductToRestaurantUseCaseDTO): Promise<Response> {
+    public async execute(req: AddProductToRestaurantDTO): Promise<Response> {
 
         let category: Category
-        let restaurant: Restaurant
 
+        const dto: AddProductToRestaurantDTO = {
+            discountedFee: req.discountedFee,
+            fee: req.fee,
+            name: req.name,
+            recipe: req.recipe,
+            categoryId: req.categoryId
+        }
         try {
 
-            [category, restaurant] = await Promise.all([
-                this.categoryRepository.findById(req.categoryId),
-                this.restaurantRepository.findById(req.restaurantId)
-            ])
+            category = await this.categoryRepository.findById(dto.categoryId)
 
         } catch (err) {
             return left(new Category404())
         }
 
-        const dto = {
-            name: req.name,
-            fee: req.fee,
-            recipe: req.recipe,
-            discountedFee: req.discountedFee,
-            categoryId: category.categoryId
-        }
-
-        const productOrError = Product.create(dto)
-        const dtoResult = Result.combine([productOrError])
+        const productOrError = Product.create({
+            categoryId: category.categoryId,
+            fee: dto.fee,
+            name: dto.name,
+            recipe: dto.recipe,
+            discountedFee: dto.discountedFee
+        })
 
         if (productOrError.isFailure) {
-            return left(Result.fail<void>(dtoResult.getErrorValue())) as Response
+            return left(productOrError)
         }
 
         const product = productOrError.getValue()
 
         try {
-            restaurant.addProduct(product)
-            await this.restaurantRepository.save(restaurant)
+            category.addProduct(product)
+            await this.categoryRepository.save(category)
             return right(Result.ok<void>())
 
         } catch (error) {

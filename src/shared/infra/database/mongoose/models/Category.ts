@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose'
+import { model, Schema } from 'mongoose'
 import { CategoryProps } from '../../../../../modules/Restaurant/domain/category'
 
 

@@ -17,7 +17,8 @@ export class CreateCategoryController extends BaseController {
         let dto: CreateCategoryDTO = req.body as CreateCategoryDTO
 
         dto = {
-            name: dto.name
+            name: dto.name,
+            restaurantId: dto.restaurantId
         }
         try {
             const result = await this.useCase.execute(dto)

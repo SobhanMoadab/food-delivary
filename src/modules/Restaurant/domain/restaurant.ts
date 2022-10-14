@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
 import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
+import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { Categories } from "./categories";
 import { Category } from "./category";
 import { ProductCreated } from "./events/ProductCreated";
@@ -23,8 +24,8 @@ export interface RestaurantProps {
 }
 
 export class Restaurant extends AggregateRoot<RestaurantProps> {
-    constructor(props: RestaurantProps) {
-        super(props)
+    constructor(props: RestaurantProps, id?: UniqueEntityID) {
+        super(props, id)
     }
     get restaurantId(): RestaurantId {
         return RestaurantId.create(this._id).getValue()
@@ -68,9 +69,5 @@ export class Restaurant extends AggregateRoot<RestaurantProps> {
         return Result.ok<Restaurant>(restaurant)
     }
 
-    public addProduct(product: Product): Result<void> {
-        this.props.products?.add(product)
-        this.addDomainEvent(new ProductCreated(this, product));
-        return Result.ok<void>();
-    }
+    
 }

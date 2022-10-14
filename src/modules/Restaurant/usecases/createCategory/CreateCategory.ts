@@ -5,6 +5,9 @@ import { Category } from "../../domain/category";
 import { CreateCategoryDTO } from "./CreateCategoryDTO";
 import { Category404, DuplicateCategoryName } from "./CreateCategoryErrors";
 import { ICategoryRepository } from '../../repos/ICategoryRepository'
+import { Restaurant404 } from "../registerRestaurant/RegisterRestaurantErrors";
+import { Restaurant } from "../../domain/restaurant";
+import { IRestaurantRepository } from "../../repos/IRestaurantRepository";
 
 
 type Response = Either<
@@ -19,24 +22,34 @@ type Response = Either<
 export class CreateCategoryUseCase implements UseCase<CreateCategoryDTO, Promise<Response>> {
 
 
-    constructor(private categoryRepository: ICategoryRepository) { }
+    constructor(private categoryRepo: ICategoryRepository, private restaurantRepo: IRestaurantRepository) { }
 
     public async execute(req: CreateCategoryDTO): Promise<Response> {
 
-        const dto = {
-            name: req.name
-        }
-        const categoryOrError = Category.create(dto)
-        const dtoResult = Result.combine([categoryOrError])
+        let restaurant: Restaurant
+        let category: Category
 
-        if (categoryOrError.isFailure) {
-            return left(Result.fail<void>(dtoResult.getErrorValue())) as Response
+        const dto = {
+            name: req.name,
+            restaurantId: req.restaurantId
         }
 
         try {
-            const category = categoryOrError.getValue()
-            await this.categoryRepository.save(category)
+            try {
+                restaurant = await this.restaurantRepo.findById(dto.restaurantId)
+            } catch (err) {
+                return left(new Restaurant404())
+            }
+            const categoryOrError = Category.create({
+                name: dto.name,
+                restaurantId: restaurant.restaurantId
+            })
+            if (categoryOrError.isFailure) {
+                return left(categoryOrError)
+            }
 
+            category = categoryOrError.getValue()
+            await this.categoryRepo.save(category)
             return right(Result.ok<void>())
         } catch (error) {
             return left(new UnexpectedError(error)) as Response;

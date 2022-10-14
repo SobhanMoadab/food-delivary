@@ -12,6 +12,11 @@ export class ProductRepository implements IProductRepository {
 
         this._model = schemaModel;
     }
+    async saveBulk(products: Product[]): Promise<void> {
+        for (let product of products){
+            await this.save(product)
+        }
+    }
     async save(props: Product): Promise<void> {
         const toPers = ProductMapper.toPersistence(props)
         await this._model.create(toPers)

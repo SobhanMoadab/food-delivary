@@ -3,8 +3,8 @@ import { UnexpectedError } from "../../../../shared/core/AppError"
 import { BaseController } from "../../../../shared/infra/http/models/BaseController"
 import { DecodedExpressRequest } from "../../../Customer/infra/http/models/DecodedExpressRequest"
 import { Category404 } from "../createCategory/CreateCategoryErrors"
-import { AddProductToRestaurantUseCase } from "./AddProductToRestaurant"
-import { AddProductToRestaurantUseCaseDTO } from "./AddProductToRestaurantDTO"
+import { AddProductToRestaurantUseCase } from "./addProductToCategory"
+import { AddProductToRestaurantDTO } from "./addProductToCategoryDTO"
 
 
 export class AddProductToRestaurantController extends BaseController {
@@ -14,7 +14,7 @@ export class AddProductToRestaurantController extends BaseController {
     }
 
     async executeImpl(req: DecodedExpressRequest, res: Response) {
-        let dto: AddProductToRestaurantUseCaseDTO = req.body as AddProductToRestaurantUseCaseDTO
+        let dto: AddProductToRestaurantDTO = req.body as AddProductToRestaurantDTO
 
         dto = {
             name: dto.name,
@@ -22,7 +22,6 @@ export class AddProductToRestaurantController extends BaseController {
             categoryId: dto.categoryId,
             discountedFee: dto.discountedFee,
             fee: dto.fee,
-            restaurantId: dto.restaurantId
         }
         try {
             const result = await this.useCase.execute(dto)

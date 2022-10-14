@@ -5,7 +5,7 @@ import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 
 export class CategoryId extends Entity<any> {
     get id(): UniqueEntityID {
-        return this.id
+        return this._id
     }
     private constructor(id?: UniqueEntityID) {
         super(null, id)

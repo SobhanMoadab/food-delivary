@@ -10,9 +10,7 @@ export class RestaurantMapper {
             ownerName: raw.ownerName,
             ownerSurname: raw.ownerSurname,
             phoneNumber: raw.phoneNumber,
-            categories: raw.categories ?? [],
-            products: raw.products ?? [],
-        })
+        },)
         return restaurantOrError.isSuccess ? restaurantOrError.getValue() : restaurantOrError.getErrorValue()
     }
     public static toPersistence(restaurant: Restaurant): any {
