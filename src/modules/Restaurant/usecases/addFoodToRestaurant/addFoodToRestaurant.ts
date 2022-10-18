@@ -18,7 +18,7 @@ import { Restaurant404 } from "../registerRestaurant/RegisterRestaurantErrors";
 import { AddFoodToRestaurantDTO } from "./addFoodToRestaurantDTO";
 
 type Response = Either<
-    Food404 |
+    Restaurant404 |
     UnexpectedError |
     Result<any>,
     Result<void>

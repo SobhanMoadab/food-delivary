@@ -2,7 +2,8 @@ import { Restaurant } from "../../../domain/restaurant"
 import { IRestaurantRepository } from "../../../repos/IRestaurantRepository"
 import { AddFoodToRestaurantUseCase } from "../../../usecases/addFoodToRestaurant/addFoodToRestaurant"
 import { AddFoodToRestaurantDTO } from "../../../usecases/addFoodToRestaurant/addFoodToRestaurantDTO"
-
+import { Restaurant404 } from "../../../usecases/registerRestaurant/RegisterRestaurantErrors"
+import { mock } from 'jest-mock-extended'
 
 /*
     Feature:
@@ -41,11 +42,7 @@ describe('add food to restaurant use case', () => {
             phoneNumber: 3333
         }).getValue()
 
-        restaurantRepo = {
-            findById: jest.fn(),
-            getAllRestaurants: jest.fn(),
-            save: jest.fn()
-        }
+        restaurantRepo = mock<IRestaurantRepository>()
         useCase = new AddFoodToRestaurantUseCase(restaurantRepo)
     })
 
@@ -67,9 +64,13 @@ describe('add food to restaurant use case', () => {
 
     it('should throw restaurant not found error, if id is not correct', async () => {
 
+        jest
+            .spyOn(restaurantRepo, 'findById')
+            .mockImplementation(() => Promise.reject())
         const result = await useCase.execute(dto)
-        console.log({ result: result.value })
-        // expect(result.isRight()).toBeFalsy()
+
+        expect(result.isRight()).toBeFalsy()
+        expect(result.value).toBeInstanceOf(Restaurant404)
     })
 
 })
