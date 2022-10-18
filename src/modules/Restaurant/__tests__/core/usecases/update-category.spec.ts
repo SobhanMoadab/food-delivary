@@ -1,5 +1,5 @@
 import { ICategoryRepository } from "../../../repos/ICategoryRepository"
-import { Category404 } from "../../../usecases/createCategory/CreateCategoryErrors"
+import { Food404 } from "../../../usecases/createFood/CreateFoodErrors"
 import { UpdateCategory } from "../../../usecases/updateCategory/UpdateCategory"
 
 

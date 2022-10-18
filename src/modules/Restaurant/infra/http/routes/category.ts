@@ -1,5 +1,5 @@
 import express from 'express'
-import { createCategoryController } from '../../../usecases/createCategory'
+import { createCategoryController } from '../../../usecases/createFood'
 
 const categoryRouter = express.Router()
 

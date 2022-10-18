@@ -1,10 +1,10 @@
 import { Category } from "../../domain/category"
 
 
-export interface AddProductToRestaurantDTO {
+export interface AddFoodToRestaurantDTO {
     name: string,
     fee: number,
     recipe: string,
     discountedFee: number
-    categoryId: string
+    restaurantId: string
 }

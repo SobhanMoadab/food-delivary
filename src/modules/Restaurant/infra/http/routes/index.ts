@@ -1,6 +1,6 @@
 
 import { categoryRouter } from './category'
-import { productRouter } from './product'
+import { productRouter } from './food'
 import { restaurantRouter } from './restaurant'
 
 export {

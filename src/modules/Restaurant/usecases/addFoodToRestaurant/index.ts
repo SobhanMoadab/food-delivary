@@ -1,5 +1,5 @@
-import { AddProductToRestaurantUseCase } from './addProductToCategory'
-import { AddProductToRestaurantController } from './addProductToCategoryController'
+import { AddProductToRestaurantUseCase } from './addFoodToRestaurant'
+import { AddProductToRestaurantController } from './addFoodToRestaurantController'
 import { CategoryRepository } from '../../repos/impl/categoryImpl'
 import { CategoryModel } from '../../../../shared/infra/database/mongoose/models/Category'
 import { RestaurantRepository } from '../../repos/impl/restaurantImpl'
@@ -11,7 +11,7 @@ const productRepo = new ProductRepository(ProductModel)
 const restaurantRepo = new RestaurantRepository(RestaurantModel)
 const categoryRepo = new CategoryRepository(CategoryModel, productRepo)
 
-const createProductUseCase = new AddProductToRestaurantUseCase(categoryRepo,restaurantRepo)
+const createProductUseCase = new AddProductToRestaurantUseCase(categoryRepo, productRepo, restaurantRepo)
 const createProductController = new AddProductToRestaurantController(createProductUseCase)
 
 

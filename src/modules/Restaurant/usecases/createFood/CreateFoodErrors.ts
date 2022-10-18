@@ -2,17 +2,18 @@ import { Result } from "../../../../shared/core/Result";
 import { UseCaseError } from "../../../../shared/core/UseCaseError";
 
 
-export class DuplicateCategoryName extends Result<UseCaseError> {
+export class DuplicateFoodName extends Result<UseCaseError> {
     constructor(name: string) {
         super(false, {
-            message: `The name ${name} is already chosen for a category!`
+            message: `The name ${name} is already chosen for a food!`
         } as UseCaseError)
     }
 }
-export class Category404 extends Result<UseCaseError> {
+
+export class Food404 extends Result<UseCaseError> {
     constructor() {
         super(false, {
-            message: `Category does not exist!`
+            message: `Food does not exist!`
         } as UseCaseError)
     }
 }

@@ -4,10 +4,10 @@ import { UseCase } from "../../../../shared/core/UseCase";
 import { Category } from "../../domain/category";
 import { ICategoryRepository } from "../../repos/ICategoryRepository";
 import { IProductRepository } from "../../repos/IProductRepository";
-import { Category404 } from "../createCategory/CreateCategoryErrors";
+import { Category404 } from "../createFood/CreateFoodErrors";
 import { UpdateCategoryDTO } from "./UpdateCategoryDTO";
 import { has } from 'lodash'
-import { Product } from "../../domain/product";
+import { Product } from "../../domain/food";
 
 
 

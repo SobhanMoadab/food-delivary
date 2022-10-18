@@ -1,7 +1,7 @@
 import { Model } from "mongoose";
 import { Category, CategoryProps } from "../../domain/category";
 import { CategoryId } from "../../domain/categoryId";
-import { Products } from "../../domain/products";
+import { Products } from "../../domain/foods";
 import { CategoryMapper } from "../../mappers/categoryMapper";
 import { ICategoryRepository } from "../ICategoryRepository";
 import { IProductRepository } from "../IProductRepository";
@@ -53,5 +53,11 @@ export class CategoryRepository implements ICategoryRepository {
         }).lean()
         if (!category) throw new Error()
         else return CategoryMapper.toDomain({ ...category })
+    }
+    async getCategoriesOfRestaurant(restaurantId: string): Promise<Category[]> {
+        const categories = await this._model.find({ restaurantId }).populate({ path: 'products', model: 'Product' })
+        if(!categories) throw new Error()
+        return categories.map(c => CategoryMapper.toDomain(c))
+
     }
 }

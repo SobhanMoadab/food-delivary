@@ -8,8 +8,8 @@ import { Categories } from "./categories";
 import { Category } from "./category";
 import { ProductCreated } from "./events/ProductCreated";
 import { RestaurantCreated } from "./events/restaurantCreated";
-import { Product } from "./product";
-import { Products } from "./products";
+import { Food } from "./food";
+import { Products } from "./foods";
 import { RestaurantId } from "./RestaurantId";
 
 

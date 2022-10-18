@@ -1,7 +1,7 @@
 import { IDomainEvent } from "../../../../shared/domain/events/IDomainEvent";
 import { UniqueEntityID } from "../../../../shared/domain/UniqueEntityID";
 import { Category } from "../category";
-import { Product } from "../product";
+import { Product } from "../food";
 import { Restaurant } from "../restaurant";
 
 

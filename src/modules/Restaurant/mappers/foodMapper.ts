@@ -1,14 +1,15 @@
-import { Product } from "../domain/product"
+import { Product } from "../domain/food"
 
 
 export class ProductMapper {
     public static toDomain(raw: any): Product {
         const productOrError = Product.create({
-            name: raw._doc.name,
-            categoryId: raw._doc.categoryId,
-            fee: raw._doc.fee,
-            recipe: raw._doc.recipe,
-            discountedFee: raw._doc.discountedFee,
+            name: raw.name,
+            categoryId: raw.categoryId,
+            fee: raw.fee,
+            recipe: raw.recipe,
+            discountedFee: raw.discountedFee,
+            restaurantId: raw.restaurantId
         })
 
         return productOrError.isSuccess ? productOrError.getValue() : productOrError.getErrorValue()

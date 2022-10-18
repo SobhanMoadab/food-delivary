@@ -2,11 +2,11 @@
 import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
-import { Product } from "../../../Restaurant/domain/product";
+import { Product } from "../../../Restaurant/domain/food";
 import { Restaurant } from "../../../Restaurant/domain/restaurant";
 import { IProductRepository } from "../../../Restaurant/repos/IProductRepository";
 import { IRestaurantRepository } from "../../../Restaurant/repos/IRestaurantRepository";
-import { Product404 } from "../../../Restaurant/usecases/addProductToCategory/addProductToCategoryErrors";
+import { Product404 } from "../../../Restaurant/usecases/addFoodToRestaurant/addFoodToRestaurantErrors";
 import { Order } from "../../domain/Order";
 import { IOrderRepository } from "../../repos/IOrderRepository";
 import { SubmitOrderDTO } from "./SubmitOrderDTO";

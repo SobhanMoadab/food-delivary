@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { ProductProps } from '../../../../../modules/Restaurant/domain/product'
+import { ProductProps } from '../../../../../modules/Restaurant/domain/food'
 
 
 export const Product = new Schema<ProductProps>({
@@ -8,6 +8,7 @@ export const Product = new Schema<ProductProps>({
     recipe: { type: String, required: true },
     fee: { type: Number, required: true },
     discountedFee: { type: Number },
+    restaurantId: { type: Schema.Types.ObjectId, ref: "Restaurant" }
 
 }, { timestamps: true })
 

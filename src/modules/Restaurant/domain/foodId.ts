@@ -1,9 +1,10 @@
 import { Result } from "../../../shared/core/Result";
 import { Entity } from "../../../shared/domain/Entity";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
+import { Food } from "./food";
 
 
-export class ProductId extends Entity<any> {
+export class FoodId extends Entity<any> {
     get id(): UniqueEntityID {
         return this._id
     }
@@ -11,7 +12,7 @@ export class ProductId extends Entity<any> {
         super(null, id)
     }
 
-    public static create(id?: UniqueEntityID): Result<ProductId> {
-        return Result.ok<ProductId>(new ProductId(id));
+    public static create(id?: UniqueEntityID): Result<FoodId> {
+        return Result.ok<FoodId>(new FoodId(id));
     }
 }

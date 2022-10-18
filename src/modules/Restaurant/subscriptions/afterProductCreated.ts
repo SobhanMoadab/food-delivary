@@ -23,7 +23,7 @@ export class afterProductCreated implements IHandle<IDomainEvent> {
         try {
             await this.updateCategory.execute({ categoryId: event.product.categoryId.id.toString() })
         } catch (err) {
-            console.log(`[AfterProductCreated]: Failed to update Restaurant for {${event.restaurant.name}}`);
+            console.log(`[AfterProductCreated]: Failed to update Category for {${event.category.name}}`);
         }
     }
 }

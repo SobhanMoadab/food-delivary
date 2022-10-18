@@ -21,7 +21,7 @@ export class GetRestaurantById implements UseCase<GetRestaurantByIdDTO, Promise<
         let restaurant: Restaurant
         try {
             try {
-                restaurant = await this.restaurantRepo.findById(req.id)
+                restaurant = await this.restaurantRepo.findById(req.restaurantId)
             } catch (err) {
                 return left(new NotFound404())
             }

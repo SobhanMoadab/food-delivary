@@ -14,8 +14,9 @@ export class GetRestaurantByIdController extends BaseController {
 
     async executeImpl(req: Req, res: Response): Promise<any> {
 
-        const dto: GetRestaurantByIdDTO = {
-            id: req.params.id
+        let dto: GetRestaurantByIdDTO = req.body as GetRestaurantByIdDTO
+        dto = {
+            restaurantId: dto.restaurantId
         }
         try {
             const result = await this.useCase.execute(dto);

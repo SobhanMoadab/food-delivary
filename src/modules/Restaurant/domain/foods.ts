@@ -1,6 +1,6 @@
 
 import { WatchedList } from "../../../shared/domain/WatchedlList";
-import { Product } from "./product";
+import { Product } from "./food";
 
 export class Products extends WatchedList<Product> {
     private constructor(initialVotes: Product[]) {

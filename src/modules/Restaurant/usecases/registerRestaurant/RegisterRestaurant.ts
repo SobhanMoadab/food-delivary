@@ -6,7 +6,7 @@ import { UseCase } from '../../../../shared/core/UseCase'
 import { Restaurant } from '../../domain/restaurant'
 import { ICategoryRepository } from '../../repos/ICategoryRepository'
 import { IRestaurantRepository } from '../../repos/IRestaurantRepository'
-import { Category404 } from '../createCategory/CreateCategoryErrors'
+import { Category404 } from '../createFood/CreateFoodErrors'
 import { RegisterRestaurantDTO } from './RegisterRestaurantDTO'
 
 type Response = Either<

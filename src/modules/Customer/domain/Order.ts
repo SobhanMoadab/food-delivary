@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
 import { Entity } from "../../../shared/domain/Entity";
-import { Product } from "../../Restaurant/domain/product";
+import { Product } from "../../Restaurant/domain/food";
 import { Restaurant } from "../../Restaurant/domain/restaurant";
 
 

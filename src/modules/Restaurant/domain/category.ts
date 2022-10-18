@@ -3,9 +3,9 @@ import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
 import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
-import { Product } from "./product";
+import { Product } from "./food";
 import { CategoryId } from "./categoryId";
-import { Products } from "./products";
+import { Products } from "./foods";
 import { ProductCreated } from "./events/ProductCreated";
 import { Entity } from "../../../shared/domain/Entity";
 import { RestaurantId } from "./RestaurantId";
@@ -17,7 +17,7 @@ export interface CategoryProps {
     products?: Products
 }
 
-export class Category extends AggregateRoot<CategoryProps> {
+export class Category extends Entity<CategoryProps> {
 
     constructor(props: CategoryProps, id?: UniqueEntityID) {
         super(props, id)
@@ -46,15 +46,6 @@ export class Category extends AggregateRoot<CategoryProps> {
             const newCategory = new Category(props, id)
             return Result.ok<Category>(newCategory)
         }
-    }
-
-    public addProduct(product: Product): Result<void> {
-
-        this.props.products = Products.create()
-        this.props.products.add(product)
-        console.log({ 545555: this.props.products.getItems() })
-        this.addDomainEvent(new ProductCreated(this, product));
-        return Result.ok<void>();
     }
 
 

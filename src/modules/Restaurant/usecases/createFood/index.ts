@@ -1,5 +1,5 @@
-import { CreateCategoryController } from './CreateCategoryController'
-import { CreateCategoryUseCase } from './CreateCategory'
+import { CreateCategoryController } from './CreateFoodController'
+import { CreateCategoryUseCase } from './CreateFood'
 import { CategoryModel } from '../../../../shared/infra/database/mongoose/models/Category'
 import { CategoryRepository } from '../../repos/impl/categoryImpl'
 import { RestaurantRepository } from '../../repos/impl/restaurantImpl'
