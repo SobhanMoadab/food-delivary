@@ -1,21 +1,21 @@
-import { AddProductToRestaurantUseCase } from './addFoodToRestaurant'
-import { AddProductToRestaurantController } from './addFoodToRestaurantController'
+import { AddFoodToRestaurantUseCase } from './addFoodToRestaurant'
+import { AddFoodToRestaurantController } from './addFoodToRestaurantController'
 import { CategoryRepository } from '../../repos/impl/categoryImpl'
 import { CategoryModel } from '../../../../shared/infra/database/mongoose/models/Category'
 import { RestaurantRepository } from '../../repos/impl/restaurantImpl'
 import { RestaurantModel } from '../../../../shared/infra/database/mongoose/models/Restaurant'
-import { ProductRepository } from '../../repos/impl/productImpl'
-import { ProductModel } from '../../../../shared/infra/database/mongoose/models/Product'
+import { FoodRepository } from '../../repos/impl/foodImpl'
+import { FoodModel } from '../../../../shared/infra/database/mongoose/models/Food'
 
-const productRepo = new ProductRepository(ProductModel)
-const restaurantRepo = new RestaurantRepository(RestaurantModel)
-const categoryRepo = new CategoryRepository(CategoryModel, productRepo)
+const foodRepo = new FoodRepository(FoodModel)
+const restaurantRepo = new RestaurantRepository(RestaurantModel, foodRepo)
+const categoryRepo = new CategoryRepository(CategoryModel, foodRepo)
 
-const createProductUseCase = new AddProductToRestaurantUseCase(categoryRepo, productRepo, restaurantRepo)
-const createProductController = new AddProductToRestaurantController(createProductUseCase)
+const createFoodUseCase = new AddFoodToRestaurantUseCase(restaurantRepo)
+const createFoodController = new AddFoodToRestaurantController(createFoodUseCase)
 
 
 export {
-    createProductController,
-    createProductUseCase
+    createFoodController,
+    createFoodUseCase
 }

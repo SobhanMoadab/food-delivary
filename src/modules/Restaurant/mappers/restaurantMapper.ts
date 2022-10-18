@@ -3,6 +3,7 @@ import { Restaurant } from "../domain/restaurant"
 
 
 export class RestaurantMapper {
+
     public static toDomain(raw: any): Restaurant {
         const restaurantOrError = Restaurant.create({
             name: raw.name,
@@ -19,7 +20,6 @@ export class RestaurantMapper {
             ownerName: restaurant.props.ownerName,
             ownerSurname: restaurant.props.ownerSurname,
             city: restaurant.props.city,
-            categories: restaurant.props.categories,
         }
     }
 }

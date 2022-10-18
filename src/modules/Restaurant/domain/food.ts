@@ -3,6 +3,7 @@ import { Result } from "../../../shared/core/Result";
 import { Entity } from "../../../shared/domain/Entity";
 import { CategoryId } from "./categoryId";
 import { FoodId } from "./foodId";
+import { RestaurantId } from "./RestaurantId";
 
 
 export interface FoodProps {
@@ -10,7 +11,7 @@ export interface FoodProps {
     fee: number,
     recipe: string,
     discountedFee?: number
-    categoryId: CategoryId,
+    restaurantId: RestaurantId,
     
 }
 
@@ -37,8 +38,8 @@ export class Food extends Entity<FoodProps> {
         return this.props.fee
 
     }
-    get categoryId(): CategoryId {
-        return this.props.categoryId
+    get restaurantId(): RestaurantId {
+        return this.props.restaurantId
     }
 
     public static create(props: FoodProps): Result<Food> {
@@ -46,7 +47,7 @@ export class Food extends Entity<FoodProps> {
             { argument: props.name, argumentName: 'name' },
             { argument: props.fee, argumentName: 'fee' },
             { argument: props.recipe, argumentName: 'recipe' },
-            { argument: props.categoryId, argumentName: 'categoryId' }
+            { argument: props.restaurantId, argumentName: 'restaurantId' }
         ])
 
         if (nullGuard.isFailure) {

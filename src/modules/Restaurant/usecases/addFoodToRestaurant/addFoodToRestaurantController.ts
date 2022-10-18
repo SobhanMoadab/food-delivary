@@ -3,13 +3,13 @@ import { UnexpectedError } from "../../../../shared/core/AppError"
 import { BaseController } from "../../../../shared/infra/http/models/BaseController"
 import { DecodedExpressRequest } from "../../../Customer/infra/http/models/DecodedExpressRequest"
 import { DuplicateFoodName } from "../createFood/CreateFoodErrors"
-import { AddProductToRestaurantUseCase } from "./addFoodToRestaurant"
+import { AddFoodToRestaurantUseCase } from "./addFoodToRestaurant"
 import { AddFoodToRestaurantDTO } from "./addFoodToRestaurantDTO"
 
 
 export class AddFoodToRestaurantController extends BaseController {
 
-    constructor(private useCase: AddProductToRestaurantUseCase) {
+    constructor(private useCase: AddFoodToRestaurantUseCase) {
         super()
     }
 

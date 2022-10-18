@@ -1,7 +1,7 @@
 import { Response } from "express"
 import { UnexpectedError } from "../../../../shared/core/AppError"
 import { BaseController } from "../../../../shared/infra/http/models/BaseController"
-import { Product404 } from "../../../Restaurant/usecases/addFoodToRestaurant/addFoodToRestaurantErrors"
+import { Food404 } from "../../../Restaurant/usecases/addFoodToRestaurant/addFoodToRestaurantErrors"
 import { DecodedExpressRequest } from "../../infra/http/models/DecodedExpressRequest"
 import { SubmitOrderUseCase } from "./SubmitOrder"
 import { SubmitOrderDTO } from "./SubmitOrderDTO"
@@ -21,8 +21,8 @@ export class SubmitOrderController extends BaseController {
         dto = {
             // customerId: dto.customerId,
             foodsPrice: dto.foodsPrice,
-            productId: dto.productId,
-            restaurantId: dto.restaurantId
+            restaurantId: dto.restaurantId,
+            foodId: dto.foodId
 
         }
         try {
@@ -32,7 +32,7 @@ export class SubmitOrderController extends BaseController {
                 switch (error.constructor) {
                     case RestaurantNotFoundError:
                         return res.status(400).json({ status: 400, msg: error.getErrorValue() })
-                    case Product404:
+                    case Food404:
                         return res.status(400).json({ status: 400, msg: error.getErrorValue() })
                     case UnexpectedError:
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })

@@ -1,7 +1,7 @@
 import { DomainEvents } from "../../../shared/domain/events/DomainEvents";
 import { IDomainEvent } from "../../../shared/domain/events/IDomainEvent";
 import { IHandle } from "../../../shared/domain/events/IHandle";
-import { ProductCreated } from "../domain/events/ProductCreated";
+import { ProductCreated } from "../domain/events/FoodCreated";
 import { UpdateCategory } from "../usecases/updateCategory/UpdateCategory";
 
 

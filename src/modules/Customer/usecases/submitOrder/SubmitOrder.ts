@@ -2,11 +2,11 @@
 import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
-import { Product } from "../../../Restaurant/domain/food";
+import { Food } from "../../../Restaurant/domain/food";
 import { Restaurant } from "../../../Restaurant/domain/restaurant";
-import { IProductRepository } from "../../../Restaurant/repos/IProductRepository";
+import { IFoodRepository } from "../../../Restaurant/repos/IFoodRepository";
 import { IRestaurantRepository } from "../../../Restaurant/repos/IRestaurantRepository";
-import { Product404 } from "../../../Restaurant/usecases/addFoodToRestaurant/addFoodToRestaurantErrors";
+import { Food404 } from "../../../Restaurant/usecases/addFoodToRestaurant/addFoodToRestaurantErrors";
 import { Order } from "../../domain/Order";
 import { IOrderRepository } from "../../repos/IOrderRepository";
 import { SubmitOrderDTO } from "./SubmitOrderDTO";
@@ -14,7 +14,7 @@ import { RestaurantNotFoundError } from "./SubmitOrderErrors";
 
 
 type Response = Either<
-    Product404 |
+    Food404 |
     RestaurantNotFoundError |
     UnexpectedError |
     Result<any>,
@@ -24,43 +24,43 @@ type Response = Either<
 export class SubmitOrderUseCase implements UseCase<SubmitOrderDTO, Promise<Response>> {
 
     constructor(
-        public orderRepository: IOrderRepository,
-        public restaurantRepository: IRestaurantRepository,
-        public productRepository: IProductRepository,
+        public orderRepo: IOrderRepository,
+        public restaurantRepo: IRestaurantRepository,
+        public foodRepo: IFoodRepository,
 
     ) { }
 
     async execute(req: SubmitOrderDTO): Promise<Response> {
 
         let restaurant: Restaurant
-        let product: Product
+        let food: Food
 
         try {
 
             try {
-                restaurant = await this.restaurantRepository.findById(req.restaurantId)
+                restaurant = await this.restaurantRepo.findById(req.restaurantId)
             } catch (err) {
                 return left(new RestaurantNotFoundError)
             }
             try {
-                product = await this.productRepository.findById(req.productId)
+                food = await this.foodRepo.findById(req.foodId)
             } catch (err) {
-                return left(new Product404())
+                return left(new Food404())
             }
             const props = {
-                product,
+                food,
                 // customer: Customer,
                 restaurant,
                 foodsPrice: req.foodsPrice,
                 status: 'CREATED'
             }
-            const orderOrError = Order.create(props)
-            if (orderOrError.isFailure) {
-                return left(orderOrError)
-            }
+            // const orderOrError = Order.create(props)
+            // if (orderOrError.isFailure) {
+            // return left(orderOrError)
+            // }
 
-            const order = orderOrError.getValue()
-            await this.orderRepository.save(order)
+            // const order = orderOrError.getValue()
+            // await this.orderRepository.save(order)
 
             return right(Result.ok<void>())
 

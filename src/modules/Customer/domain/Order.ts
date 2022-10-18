@@ -2,16 +2,15 @@ import { ObjectId } from "mongodb";
 import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
 import { Entity } from "../../../shared/domain/Entity";
-import { Product } from "../../Restaurant/domain/food";
+import { Food } from "../../Restaurant/domain/food";
 import { Restaurant } from "../../Restaurant/domain/restaurant";
+import { RestaurantId } from "../../Restaurant/domain/RestaurantId";
 
 
 
 export interface OrderProps {
     id?: ObjectId | string
-    product: Product,
-    // customer: Customer,
-    restaurant: Restaurant,
+    restaurantId: RestaurantId,
     foodsPrice: number
     status: string
 }
@@ -25,16 +24,14 @@ export class Order extends Entity<OrderProps> {
         const guardResult = Guard.againstNullOrUndefinedBulk([
             // { argument: props.customer, argumentName: 'customer' },
             { argument: props.foodsPrice, argumentName: 'foodsPrice' },
-            { argument: props.product, argumentName: 'product' },
-            { argument: props.restaurant, argumentName: 'restaurant' },
+            { argument: props.restaurantId, argumentName: 'restaurantId' },
         ])
         if (guardResult.isFailure) {
             return Result.fail<Order>(guardResult.getErrorValue())
         }
         const newOrder = new Order({
             foodsPrice: props.foodsPrice,
-            product: props.product,
-            restaurant: props.restaurant,
+            restaurantId: props.restaurantId,
             status: props.status,
             id: props.id ?? new ObjectId()
         })

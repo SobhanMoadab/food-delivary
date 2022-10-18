@@ -1,5 +1,5 @@
 export interface SubmitOrderDTO {
-    productId: string,
+    foodId: string,
     // customerId: string,
     restaurantId: string,
     foodsPrice: number

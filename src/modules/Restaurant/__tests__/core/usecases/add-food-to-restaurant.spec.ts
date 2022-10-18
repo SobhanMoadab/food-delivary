@@ -73,4 +73,5 @@ describe('add food to restaurant use case', () => {
         expect(result.value).toBeInstanceOf(Restaurant404)
     })
 
+
 })

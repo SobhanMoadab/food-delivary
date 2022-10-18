@@ -3,7 +3,7 @@ import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { Category } from "../../domain/category";
 import { ICategoryRepository } from "../../repos/ICategoryRepository";
-import { IProductRepository } from "../../repos/IProductRepository";
+import { IProductRepository } from "../../repos/IFoodRepository";
 import { Category404 } from "../createFood/CreateFoodErrors";
 import { UpdateCategoryDTO } from "./UpdateCategoryDTO";
 import { has } from 'lodash'

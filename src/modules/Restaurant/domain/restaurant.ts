@@ -5,11 +5,9 @@ import { Result } from "../../../shared/core/Result";
 import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { Categories } from "./categories";
-import { Category } from "./category";
-import { ProductCreated } from "./events/ProductCreated";
-import { RestaurantCreated } from "./events/restaurantCreated";
+import { FoodCreated } from "./events/FoodCreated";
 import { Food } from "./food";
-import { Products } from "./foods";
+import { Foods } from "./foods";
 import { RestaurantId } from "./RestaurantId";
 
 
@@ -19,8 +17,7 @@ export interface RestaurantProps {
     ownerName: string
     ownerSurname: string
     phoneNumber: number
-    products?: Products
-    categories?: Categories
+    foods?: Foods
 }
 
 export class Restaurant extends AggregateRoot<RestaurantProps> {
@@ -45,12 +42,10 @@ export class Restaurant extends AggregateRoot<RestaurantProps> {
     get phoneNumber(): number {
         return this.props.phoneNumber
     }
-    get products(): Products {
-        return this.props.products!
+    get foods(): Foods {
+        return this.props.foods ?? Foods.create()
     }
-    get categories(): Categories {
-        return this.props.categories!
-    }
+
 
     public static create(props: RestaurantProps): Result<Restaurant> {
 
@@ -69,5 +64,12 @@ export class Restaurant extends AggregateRoot<RestaurantProps> {
         return Result.ok<Restaurant>(restaurant)
     }
 
-    
+    public addFood(food: Food): Result<void> {
+        if(!this.props.foods){
+            this.props.foods = Foods.create()
+        }
+        this.props.foods.add(food);
+        this.addDomainEvent(new FoodCreated(this, food));
+        return Result.ok<void>();
+    }
 }

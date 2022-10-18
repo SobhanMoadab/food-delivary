@@ -4,9 +4,9 @@ import { CategoryProps } from '../../../../../modules/Restaurant/domain/category
 
 export const Category = new Schema<CategoryProps>({
     name: { type: String },
-    products: [{
-        type: Schema.Types.ObjectId, ref: "Product"
-    }]
+    // products: [{
+    //     type: Schema.Types.ObjectId, ref: "Product"
+    // }]
 }, { timestamps: true })
 
 

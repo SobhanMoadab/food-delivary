@@ -7,8 +7,7 @@ export class OrderMapper {
 
         const orderOrError = Order.create({
             foodsPrice: raw._doc.foodsPrice,
-            product: raw._doc.product,
-            restaurant: raw._doc.restaurant,
+            restaurantId: raw._doc.restaurantId,
             status: raw._doc.restaurant,
             id: raw._doc._id
         })
@@ -18,9 +17,8 @@ export class OrderMapper {
     public static toPersistence({ props }: Order): any {
         return {
             foodsPrice: props.foodsPrice,
-            product: props.product.props,
             status: props.status,
-            restaurant: props.restaurant.props,
+            restaurant: props.restaurantId,
             id: new ObjectId()
         }
     }

@@ -3,10 +3,10 @@ import { Guard } from "../../../shared/core/Guard";
 import { Result } from "../../../shared/core/Result";
 import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
-import { Product } from "./food";
+import { Food } from "./food";
 import { CategoryId } from "./categoryId";
-import { Products } from "./foods";
-import { ProductCreated } from "./events/ProductCreated";
+import { Foods } from "./foods";
+import { FoodCreated } from "./events/FoodCreated";
 import { Entity } from "../../../shared/domain/Entity";
 import { RestaurantId } from "./RestaurantId";
 
@@ -14,7 +14,7 @@ import { RestaurantId } from "./RestaurantId";
 export interface CategoryProps {
     name: string
     restaurantId: RestaurantId
-    products?: Products
+    // foods?: Foods
 }
 
 export class Category extends Entity<CategoryProps> {
@@ -29,9 +29,9 @@ export class Category extends Entity<CategoryProps> {
         return this.props.name
     }
 
-    get products(): Products {
-        return this.props.products ?? Products.create()
-    }
+    // get products(): Products {
+    //     return this.props.products ?? Products.create()
+    // }
 
     get restaurantId(): RestaurantId {
         return this.props.restaurantId

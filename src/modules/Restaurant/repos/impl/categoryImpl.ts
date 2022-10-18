@@ -1,19 +1,19 @@
 import { Model } from "mongoose";
 import { Category, CategoryProps } from "../../domain/category";
 import { CategoryId } from "../../domain/categoryId";
-import { Products } from "../../domain/foods";
+import { Foods } from "../../domain/foods";
 import { CategoryMapper } from "../../mappers/categoryMapper";
 import { ICategoryRepository } from "../ICategoryRepository";
-import { IProductRepository } from "../IProductRepository";
+import { IFoodRepository } from "../IFoodRepository";
 
 
 export class CategoryRepository implements ICategoryRepository {
 
     private _model: Model<CategoryProps>
-    private productRepo: IProductRepository
+    private foodRepo: IFoodRepository
 
-    constructor(schemaModel: Model<CategoryProps>, productRepo: IProductRepository) {
-        this.productRepo = productRepo
+    constructor(schemaModel: Model<CategoryProps>, foodRepo: IFoodRepository) {
+        this.foodRepo = foodRepo
         this._model = schemaModel
     }
 
@@ -25,24 +25,23 @@ export class CategoryRepository implements ICategoryRepository {
         if (founded) return true
         else return false
     }
-    private async saveProducts(products: Products) {
-        console.log({ products })
-        return this.productRepo.saveBulk(products.getItems())
-    }
+    // private async saveFoods(foods: Foods) {
+    //     return this.foodRepo.saveBulk(products.getItems())
+    // }
 
     async save(category: Category): Promise<void> {
 
-        const exists = await this.exists(category.categoryId)
-        const isNew = !exists
-        const toPers = CategoryMapper.toPersistence(category)
-        if (isNew) {
-            await this._model.create(toPers)
-            // await this.saveProducts(category.products)
-            return
-        } else {
-            await this.saveProducts(category.products)
-            await this._model.findByIdAndUpdate(category.categoryId.id.toString(), toPers)
-        }
+        // const exists = await this.exists(category.categoryId)
+        // const isNew = !exists
+        // const toPers = CategoryMapper.toPersistence(category)
+        // if (isNew) {
+        //     await this._model.create(toPers)
+        //     // await this.saveProducts(category.products)
+        //     return
+        // } else {
+        //     // await this.saveProducts(category.products)
+        //     await this._model.findByIdAndUpdate(category.categoryId.id.toString(), toPers)
+        // }
 
     }
 
@@ -56,7 +55,7 @@ export class CategoryRepository implements ICategoryRepository {
     }
     async getCategoriesOfRestaurant(restaurantId: string): Promise<Category[]> {
         const categories = await this._model.find({ restaurantId }).populate({ path: 'products', model: 'Product' })
-        if(!categories) throw new Error()
+        if (!categories) throw new Error()
         return categories.map(c => CategoryMapper.toDomain(c))
 
     }

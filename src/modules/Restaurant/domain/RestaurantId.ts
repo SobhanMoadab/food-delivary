@@ -4,6 +4,7 @@ import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 
 
 export class RestaurantId extends Entity<any> {
+    
     get id(): UniqueEntityID {
         return this._id
     }

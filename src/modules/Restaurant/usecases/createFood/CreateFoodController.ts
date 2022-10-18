@@ -4,7 +4,7 @@ import { BaseController } from "../../../../shared/infra/http/models/BaseControl
 import { DecodedExpressRequest } from "../../../Customer/infra/http/models/DecodedExpressRequest";
 import { CreateCategoryUseCase } from "./CreateFood";
 import { CreateCategoryDTO } from "./CreateFoodDTO";
-import { Category404, DuplicateCategoryName } from "./CreateFoodErrors";
+import { DuplicateFoodName,Food404 } from "./CreateFoodErrors";
 
 
 export class CreateCategoryController extends BaseController {
@@ -25,9 +25,9 @@ export class CreateCategoryController extends BaseController {
             if (result.isLeft()) {
                 const error = result.value
                 switch (error.constructor) {
-                    case DuplicateCategoryName:
+                    case DuplicateFoodName:
                         return res.status(400).json({ status: 400, msg: error.getErrorValue() })
-                    case Category404:
+                    case Food404:
                         return res.status(400).json({ status: 400, msg: error.getErrorValue() })
                     case UnexpectedError:
                         return res.status(500).json({ status: 500, msg: error.getErrorValue() })

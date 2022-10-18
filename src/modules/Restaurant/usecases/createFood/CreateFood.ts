@@ -3,7 +3,7 @@ import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { Category } from "../../domain/category";
 import { CreateCategoryDTO } from "./CreateFoodDTO";
-import { Category404, DuplicateCategoryName } from "./CreateFoodErrors";
+import { Food404, DuplicateFoodName } from "./CreateFoodErrors";
 import { ICategoryRepository } from '../../repos/ICategoryRepository'
 import { Restaurant404 } from "../registerRestaurant/RegisterRestaurantErrors";
 import { Restaurant } from "../../domain/restaurant";
@@ -11,8 +11,8 @@ import { IRestaurantRepository } from "../../repos/IRestaurantRepository";
 
 
 type Response = Either<
-    DuplicateCategoryName |
-    Category404 |
+    DuplicateFoodName |
+    Food404 |
     UnexpectedError |
     Result<any>,
     Result<void>

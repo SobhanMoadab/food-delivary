@@ -1,17 +1,17 @@
 
 import { WatchedList } from "../../../shared/domain/WatchedlList";
-import { Product } from "./food";
+import { Food } from "./food";
 
-export class Products extends WatchedList<Product> {
-    private constructor(initialVotes: Product[]) {
+export class Foods extends WatchedList<Food> {
+    private constructor(initialVotes: Food[]) {
         super(initialVotes)
     }
 
-    public compareItems(a: Product, b: Product): boolean {
+    public compareItems(a: Food, b: Food): boolean {
         return a.equals(b)
     }
 
-    public static create(products?: Product[]): Products {
-        return new Products(products ? products : []);
+    public static create(foods?: Food[]): Foods {
+        return new Foods(foods ? foods : []);
     }
 }

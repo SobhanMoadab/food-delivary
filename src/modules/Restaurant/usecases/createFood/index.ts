@@ -4,14 +4,14 @@ import { CategoryModel } from '../../../../shared/infra/database/mongoose/models
 import { CategoryRepository } from '../../repos/impl/categoryImpl'
 import { RestaurantRepository } from '../../repos/impl/restaurantImpl'
 import { RestaurantModel } from '../../../../shared/infra/database/mongoose/models/Restaurant'
-import { ProductRepository } from '../../repos/impl/productImpl'
-import { ProductModel } from '../../../../shared/infra/database/mongoose/models/Product'
+import { FoodRepository } from '../../repos/impl/foodImpl'
+import { FoodModel } from '../../../../shared/infra/database/mongoose/models/Food'
 
 
-const productRepo = new ProductRepository(ProductModel)
+const foodRepo = new FoodRepository(FoodModel)
 
-const categoryRepo = new CategoryRepository(CategoryModel,productRepo)
-const restaurantRepo = new RestaurantRepository(RestaurantModel)
+const categoryRepo = new CategoryRepository(CategoryModel, foodRepo)
+const restaurantRepo = new RestaurantRepository(RestaurantModel, foodRepo)
 
 const createCategoryUseCase = new CreateCategoryUseCase(categoryRepo, restaurantRepo)
 const createCategoryController = new CreateCategoryController(createCategoryUseCase)

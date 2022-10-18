@@ -16,8 +16,7 @@ export class OrderRepository implements IOrderRepository {
         const toPers: OrderProps = OrderMapper.toPersistence(props)
         const toPersistence = {
             foodsPrice: toPers.foodsPrice,
-            product: toPers.product,
-            restaurant: toPers.restaurant.id,
+            restaurant: toPers.restaurantId,
             status: toPers.foodsPrice
         }
         await this._model.create(toPersistence)
