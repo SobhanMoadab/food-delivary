@@ -2,7 +2,7 @@ import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { Food } from "../../domain/food";
-import {  IFoodRepository } from "../../repos/IFoodRepository";
+import { IFoodRepository } from "../../repos/IFoodRepository";
 import { Restaurant404 } from "../registerRestaurant/RegisterRestaurantErrors";
 import { GetFoodsOfRestaurantDTO } from "./GetFoodsOfRestaurantDTO";
 
@@ -14,7 +14,7 @@ type Response = Either<
 
 export class GetFoodsOfRestaurant implements UseCase<GetFoodsOfRestaurantDTO, Promise<Response>> {
 
-    constructor(private productRepo: IFoodRepository) { }
+    constructor(private foodRepo: IFoodRepository) { }
 
     public async execute(req: GetFoodsOfRestaurantDTO): Promise<Response> {
 
@@ -24,7 +24,9 @@ export class GetFoodsOfRestaurant implements UseCase<GetFoodsOfRestaurantDTO, Pr
         }
 
         try {
-            const foods = await this.productRepo.getFoodsByRestaurantId(dto.restaurantId)
+
+            const foods = await this.foodRepo.getFoodsByRestaurantId(dto.restaurantId)
+
             return right(Result.ok<Food[]>(foods))
 
         } catch (err) {
