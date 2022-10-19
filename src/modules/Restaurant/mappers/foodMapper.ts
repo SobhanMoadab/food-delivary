@@ -13,12 +13,13 @@ export class FoodMapper {
 
         return foodOrError.isSuccess ? foodOrError.getValue() : foodOrError.getErrorValue()
     }
-    public static toPersistence(product: Food): any {
+    public static toPersistence(food: Food): any {
         return {
-            name: product.props.name,
-            recipe: product.props.recipe,
-            fee: product.props.fee,
-            discountedFee: product.props.discountedFee,
+            name: food.props.name,
+            recipe: food.props.recipe,
+            fee: food.props.fee,
+            discountedFee: food.props.discountedFee,
+            restaurantId: food.props.restaurantId
         }
     }
 }

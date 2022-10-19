@@ -1,4 +1,3 @@
-import { Category } from "../../domain/category"
 
 
 export interface AddFoodToRestaurantDTO {
