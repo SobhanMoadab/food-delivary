@@ -13,6 +13,7 @@ export class FoodMapper {
 
         return foodOrError.isSuccess ? foodOrError.getValue() : foodOrError.getErrorValue()
     }
+
     public static toPersistence(food: Food): any {
         return {
             name: food.props.name,
@@ -22,4 +23,5 @@ export class FoodMapper {
             restaurantId: food.props.restaurantId
         }
     }
+
 }

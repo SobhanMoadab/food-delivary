@@ -28,7 +28,6 @@ export class Food extends Entity<FoodProps> {
     }
     get recipe(): string {
         return this.props.recipe
-
     }
     get discountedFee(): number | null {
         return this.props.discountedFee ?? null
