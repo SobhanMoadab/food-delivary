@@ -1,14 +1,7 @@
-import { ICategoryRepository } from "../../../repos/ICategoryRepository"
-import { Food404 } from "../../../usecases/createFood/CreateFoodErrors"
-import { UpdateCategory } from "../../../usecases/updateCategory/UpdateCategory"
-
 
 
 describe('Update Category', () => {
-    let useCase: UpdateCategory
-    let categoryRepo: ICategoryRepository
-    let mock: any
-
+ 
     // given no categoryId
     it('should return category not found error class', async () => {
 
