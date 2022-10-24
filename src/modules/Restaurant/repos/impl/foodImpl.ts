@@ -1,6 +1,7 @@
 import { Model } from "mongoose";
 import { Food, FoodProps } from "../../domain/food";
 import { FoodId } from "../../domain/foodId";
+import { FoodDTO } from "../../dto/FoodDTO";
 import { FoodMapper } from "../../mappers/foodMapper";
 import { IFoodRepository } from "../IFoodRepository";
 
@@ -45,9 +46,9 @@ export class FoodRepository implements IFoodRepository {
         return FoodMapper.toDomain({ ...food })
     }
 
-    async getFoodsByRestaurantId(restaurantId: string): Promise<Food[]> {
+    async getFoodsByRestaurantId(restaurantId: string): Promise<FoodDTO[]> {
         const foods = await this._model.find({ restaurantId }).lean()
         if (!foods) throw new Error()
-        return foods.map(f => FoodMapper.toDomain(f))
+        return foods.map(f => FoodMapper.toDTO(f))
     }
 }

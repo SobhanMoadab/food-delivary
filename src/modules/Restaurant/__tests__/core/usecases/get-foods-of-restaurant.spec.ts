@@ -3,7 +3,6 @@ import { Food } from "../../../domain/food"
 import { Foods } from "../../../domain/foods"
 import { RestaurantId } from "../../../domain/RestaurantId"
 import { IFoodRepository } from "../../../repos/IFoodRepository"
-import { FoodRepository } from "../../../repos/impl/foodImpl"
 import { GetFoodsOfRestaurant } from "../../../usecases/getFoodsOfRestaurant/GetFoodsOfRestaurant"
 
 
@@ -42,7 +41,7 @@ describe('Get foods by restaurantId', () => {
 
     })
 
-    it('should return array of foods', async () => {
+    it('should return array of food', async () => {
 
         jest.spyOn(foodRepo, 'getFoodsByRestaurantId').mockImplementation(() => Promise.resolve(foods.getItems()))
         const useCase = new GetFoodsOfRestaurant(foodRepo)

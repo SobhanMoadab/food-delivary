@@ -1,4 +1,5 @@
 import { Food } from "../domain/food"
+import { FoodDTO } from "../dto/FoodDTO"
 
 
 export class FoodMapper {
@@ -21,6 +22,15 @@ export class FoodMapper {
             fee: food.props.fee,
             discountedFee: food.props.discountedFee,
             restaurantId: food.props.restaurantId
+        }
+    }
+
+    public static toDTO(food: any): FoodDTO {
+        return {
+            discountedFee: food.discountedFee,
+            fee: food.fee,
+            name: food.name,
+            recipe: food.recipe
         }
     }
 
