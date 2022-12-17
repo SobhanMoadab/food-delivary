@@ -43,13 +43,6 @@ export class SubmitOrderUseCase implements UseCase<SubmitOrderDTO, Promise<Respo
                 return left(new Restaurant404())
             }
 
-            /* 
-            validate restaurantId
-            check shopping cart
-            */    
-            
-
-
             try {
                 await this.cartService.retrieveItems(req.userId)
             } catch (err) {
