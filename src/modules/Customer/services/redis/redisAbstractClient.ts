@@ -27,7 +27,7 @@ export abstract class AbstractRedisClient {
         }
 
     }
-    public async getAllKeys(wildcard: string): Promise<string[]> {
+    public async getAllKeys(wildcard: string): Promise<any[]> {
         try {
             const result = await this.client.keys(`${wildcard}*`) 
             return result

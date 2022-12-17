@@ -4,13 +4,12 @@ import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { Food } from "../../../Restaurant/domain/food";
 import { Restaurant } from "../../../Restaurant/domain/restaurant";
-import { IFoodRepository } from "../../../Restaurant/repos/IFoodRepository";
 import { IRestaurantRepository } from "../../../Restaurant/repos/IRestaurantRepository";
 import { Food404 } from "../../../Restaurant/usecases/addFoodToRestaurant/addFoodToRestaurantErrors";
 import { Restaurant404 } from "../../../Restaurant/usecases/registerRestaurant/RegisterRestaurantErrors";
-import { Order } from "../../domain/Order";
-import { IOrderRepository } from "../../repos/IOrderRepository";
+import { ICartService } from "../../services/cartService";
 import { SubmitOrderDTO } from "./SubmitOrderDTO";
+import { CartIsEmpty } from "./SubmitOrderErrors";
 
 
 type Response = Either<
@@ -26,6 +25,7 @@ export class SubmitOrderUseCase implements UseCase<SubmitOrderDTO, Promise<Respo
     constructor(
         // public orderRepo: IOrderRepository,
         public restaurantRepo: IRestaurantRepository,
+        public cartService: ICartService
         // public foodRepo: IFoodRepository,
 
     ) { }
@@ -42,6 +42,20 @@ export class SubmitOrderUseCase implements UseCase<SubmitOrderDTO, Promise<Respo
             } catch (err) {
                 return left(new Restaurant404())
             }
+
+            /* 
+            validate restaurantId
+            check shopping cart
+            */    
+            
+
+
+            try {
+                await this.cartService.retrieveItems(req.userId)
+            } catch (err) {
+                return left(new CartIsEmpty())
+            }
+
             // try {
             //     food = await this.foodRepo.findById(req.foodId)
             // } catch (err) {

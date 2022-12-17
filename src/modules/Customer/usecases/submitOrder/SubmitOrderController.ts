@@ -17,13 +17,12 @@ export class SubmitOrderController extends BaseController {
 
     async executeImpl(req: DecodedExpressRequest, res: Response) {
         let dto: SubmitOrderDTO = req.body as SubmitOrderDTO
+        const { userId } = req.decoded
 
         dto = {
-            // customerId: dto.customerId,
+            userId,
             foodsPrice: dto.foodsPrice,
             restaurantId: dto.restaurantId,
-            foodId: dto.foodId
-
         }
         try {
             const result = await this.useCase.execute(dto)

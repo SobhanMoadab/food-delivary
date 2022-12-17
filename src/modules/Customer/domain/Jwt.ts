@@ -1,7 +1,7 @@
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 
 export interface JWTClaims {
-  userId: UniqueEntityID;
+  userId: string;
   // isEmailVerified: boolean;
   email: string;
   // username: string;

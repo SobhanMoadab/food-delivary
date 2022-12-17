@@ -31,13 +31,13 @@ describe('Middleware', () => {
             })
         }
 
-        authService = {
-            createRefreshToken: jest.fn(),
-            getEmailFromRefreshToken: jest.fn().mockReturnValueOnce({ email: 'test@test.com' }),
-            saveAuthenticatedCustomer: jest.fn(),
-            signJWT: jest.fn(),
-            decodeJWT: jest.fn()
-        }
+        // authService = {
+        //     createRefreshToken: jest.fn(),
+        //     getEmailFromRefreshToken: jest.fn().mockReturnValueOnce({ email: 'test@test.com' }),
+        //     saveAuthenticatedCustomer: jest.fn(),
+        //     signJWT: jest.fn(),
+        //     decodeJWT: jest.fn()
+        // }
         middleware = new Middleware(authService)
         spy = jest.spyOn(middleware, 'endRequest');
     })

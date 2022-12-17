@@ -51,7 +51,7 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> 
 
             const accessToken: JWTToken = this.authService.signJWT({
                 email: customer.email,
-                userId: customer.id
+                userId: customer.customerId.id.toString()
             })
 
             const refreshToken: RefreshToken = this.authService.createRefreshToken()

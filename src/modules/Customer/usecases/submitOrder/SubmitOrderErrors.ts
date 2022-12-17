@@ -10,4 +10,10 @@ export class RestaurantNotFoundError extends Result<UseCaseError> {
 }
 
 
-
+export class CartIsEmpty extends Result<UseCaseError> {
+    constructor() {
+        super(false, {
+            message: `Cart is empty`
+        } as UseCaseError)
+    }
+}

@@ -17,6 +17,12 @@ export class RedisAuthService extends AbstractRedisClient implements IAuthServic
     public decodeJWT(token: string): Promise<JWTClaims> {
         throw new Error()
     }
+    
+    public async getTokens(userId: string): Promise<string[]> {
+        const keyValue = await this.getAllKeys(`*${this.jwtHashName}.${userId}`)
+        return keyValue.map(kv => kv.value)
+    }
+
     public async getEmailFromRefreshToken(refreshToken: string): Promise<string> {
         const keys = await this.getAllKeys(`*${refreshToken}`)
         const exists = keys.length !== 0

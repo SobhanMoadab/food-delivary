@@ -44,7 +44,7 @@ export class RefreshAccessToken implements UseCase<RefreshAccessTokenDTO, Promis
             }
             const accessToken: JWTToken = this.authService.signJWT({
                 email: customer.email,
-                userId: customer.id
+                userId: customer.customerId.id.toString()
             })
             customer.setAccessToken(accessToken, refreshToken)
 
