@@ -34,7 +34,7 @@ export class AddFoodToCart implements UseCase<AddFoodToCartDTO, Promise<Response
         try {
 
             let food: Food
-            let cartItems: any 
+            let cartItems: any
 
             try {
                 food = await this.foodRepo.findById(req.foodId)
@@ -48,7 +48,12 @@ export class AddFoodToCart implements UseCase<AddFoodToCartDTO, Promise<Response
                 return left(new CartIsEmpty())
             }
 
-            return right(Result.ok<void>())
+            if (cartItems[req.userId]){
+                cartItems.increment()
+            }
+
+
+                return right(Result.ok<void>())
         } catch (err) {
             return left(new UnexpectedError(err)) as Response;
         }
