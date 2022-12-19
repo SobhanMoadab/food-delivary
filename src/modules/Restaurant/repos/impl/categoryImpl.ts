@@ -19,9 +19,7 @@ export class CategoryRepository implements ICategoryRepository {
 
     async exists(categoryId: CategoryId): Promise<boolean> {
         const id = categoryId.id.toString()
-        console.log({ id })
         const founded = await this._model.findById(id)
-        console.log({ founded })
         if (founded) return true
         else return false
     }

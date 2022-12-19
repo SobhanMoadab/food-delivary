@@ -6,10 +6,16 @@ import { RedisCartService } from "../../services/redis/redisCartService"
 
 describe('Redis Cart Service', () => {
     let cartService: RedisCartService
+    let dto: AddFoodToCartDTO
 
     beforeEach(() => {
         cartService = new RedisCartService(redisClient)
         redisClient.flushAll()
+        dto = {
+            foodId: '1',
+            qty: 1,
+            userId: '1'
+        }
     })
 
     it('should add foodId to cart when item does not exists', async () => {
@@ -20,6 +26,7 @@ describe('Redis Cart Service', () => {
 
         const result1 = await cartService.retrieveItems(dto.userId)
         expect(result1).toBeFalsy()
+
         await cartService.increment(dto.userId, dto.foodId)
         const result2 = await cartService.retrieveItems(dto.userId)
         expect(result2).toBe("1")
@@ -27,11 +34,7 @@ describe('Redis Cart Service', () => {
     })
 
     it('should increment if item exists', async () => {
-        const dto: AddFoodToCartDTO = {
-            foodId: '1',
-            qty: 1,
-            userId: '1'
-        }
+
         await cartService.increment(dto.userId, dto.foodId)
         const result1 = await cartService.retrieveItems(dto.userId)
 
@@ -41,10 +44,17 @@ describe('Redis Cart Service', () => {
         expect(result1).toBeTruthy()
         expect(result2).toBe("2")
 
-        // expect(result[0])
+    })
 
-        // const items = await cartService.retrieveItems(dto.userId)
-        // expect(items.qty).toBe(2)
+    it('should decrement if item exists', async () => {
 
+        await cartService.increment(dto.userId, dto.foodId)
+        await cartService.increment(dto.userId, dto.foodId)
+        const result1 = await cartService.retrieveItems(dto.userId)
+        expect(result1).toBe('2')
+
+        await cartService.decrement(dto.userId, dto.foodId)
+        const result2 = await cartService.retrieveItems(dto.userId)
+        expect(result2).toBe('1')
     })
 })

@@ -3,7 +3,6 @@ import { Customer } from "../domain/Customer";
 
 export class CustomerMapper {
     public static toDomain(raw: any): Customer {
-        console.log({ raw })
         const customerOrError = Customer.create({
             address: raw.address,
             email: raw.email,

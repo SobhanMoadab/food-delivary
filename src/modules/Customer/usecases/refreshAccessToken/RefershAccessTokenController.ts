@@ -20,7 +20,6 @@ export class RefreshAccessTokenController extends BaseController {
 
         try {
             const result = await this.useCase.execute(dto)
-            console.log({ result })
             if (result.isRight()) {
                 return res.status(201).json({ status: 201, result: result.value.getValue() })
 
@@ -37,7 +36,6 @@ export class RefreshAccessTokenController extends BaseController {
             }
 
         } catch (err) {
-            console.log({ err })
             return res.status(500).json({ status: 500, msg: 'Something went wrong' })
         }
     }

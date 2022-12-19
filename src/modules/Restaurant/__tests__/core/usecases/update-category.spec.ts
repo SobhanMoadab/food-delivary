@@ -18,7 +18,6 @@ describe('Update Category', () => {
         // const result = await useCase.execute(dto)
         // const value = result.value
 
-        // console.log({ value })
         // expect(result.isRight()).toBeFalsy()
         // expect(value).toBeInstanceOf(Category404)
 
