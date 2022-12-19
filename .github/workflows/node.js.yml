@@ -17,7 +17,7 @@ jobs:
       matrix:
         node-version: [16.x]
         redis-version: [4]
-        mongodb-version: ['4.4',]
+        mongodb-version: ["4.4"]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -28,14 +28,14 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
-      # - name: Start Redis
-      #   uses: supercharge/redis-github-action@1.4.0
-      #   with:
-      #     redis-version: ${{ matrix.redis-version }}
-      # - name: Start MongoDB
-      #   uses: supercharge/mongodb-github-action@1.8.0
-      #   with:
-      #     mongodb-version: ${{ matrix.mongodb-version }}
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: ${{ matrix.redis-version }}
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
 
       - run: npm i
       - run: npm test

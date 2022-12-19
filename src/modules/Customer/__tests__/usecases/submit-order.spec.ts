@@ -45,14 +45,4 @@ describe('submit order', () => {
         const result = await useCase.execute(dto)
         expect(result.value.isSuccess).toBeTruthy()
     })
-
-    it('should throw redis error if user does not exists', async () => {
-
-        cartService.retrieveItems = jest.fn(() => Promise.reject())
-        const useCase = new SubmitOrderUseCase(restaurantRepo, cartService)
-        const result = await useCase.execute({ foodsPrice: 333, restaurantId: 'test', userId: 'test' })
-        expect(result.value.isSuccess).toBeFalsy()
-        expect(result.value).toBeInstanceOf(CartIsEmpty)
-
-    })
 })
