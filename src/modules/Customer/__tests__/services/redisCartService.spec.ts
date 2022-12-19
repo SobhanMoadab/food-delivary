@@ -25,22 +25,26 @@ describe('Redis Cart Service', () => {
         expect(result2).toBe("1")
 
     })
-    // it('should increment if item exists, increment it', async () => {
-    //     const dto: AddFoodToCartDTO = {
-    //         foodId: '1',
-    //         qty: 1,
-    //         userId: '1'
-    //     }
-    //     // call service 
-    //     // run and check behavior 
-    //     // await cartService.increment(dto.userId, dto.foodId)
-    //     await cartService.increment(dto.userId, dto.foodId)
-    //     const result = await cartService.retrieveItems(dto.userId)
-    //     console.log({ result})
-    //     // expect(result[0])
 
-    //     // const items = await cartService.retrieveItems(dto.userId)
-    //     // expect(items.qty).toBe(2)
+    it('should increment if item exists', async () => {
+        const dto: AddFoodToCartDTO = {
+            foodId: '1',
+            qty: 1,
+            userId: '1'
+        }
+        await cartService.increment(dto.userId, dto.foodId)
+        const result1 = await cartService.retrieveItems(dto.userId)
 
-    // })
+        await cartService.increment(dto.userId, dto.foodId)
+        const result2 = await cartService.retrieveItems(dto.userId)
+
+        expect(result1).toBeTruthy()
+        expect(result2).toBe("2")
+
+        // expect(result[0])
+
+        // const items = await cartService.retrieveItems(dto.userId)
+        // expect(items.qty).toBe(2)
+
+    })
 })
