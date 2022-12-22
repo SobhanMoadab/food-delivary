@@ -7,14 +7,16 @@ import { CartIsEmpty } from "../../usecases/submitOrder/SubmitOrderErrors"
 
 describe('Add food to cart', () => {
 
-
+    let dto: AddFoodToCartDTO
+    let useCase: AddFoodToCart
     let foodRepo: IFoodRepository
     let cartService: ICartService
-    let useCase: AddFoodToCart
-    let dto: AddFoodToCartDTO
 
     beforeEach(() => {
-        jest.resetModules()
+        dto = {
+            foodId: 'foodId',
+            userId: 'userId'
+        }
         foodRepo = {
             findById: jest.fn(),
             getFoodsByRestaurantId: jest.fn(),
@@ -22,38 +24,21 @@ describe('Add food to cart', () => {
             saveBulk: jest.fn()
         }
         cartService = {
-            getCartItems: jest.fn(),
             decrement: jest.fn(),
+            getCartItems: jest.fn(),
             increment: jest.fn()
         }
         useCase = new AddFoodToCart(foodRepo, cartService)
-        dto = {
-            userId: '1',
-            foodId: '1'
-        }
     })
 
-    it('should throw error if foodId does not exists', async () => {
-
+    it('should throw error if foodId does not exist', async () => {
         foodRepo.findById = jest.fn(() => Promise.reject())
         const result = await useCase.execute(dto)
         expect(result.value.isFailure).toBeTruthy()
         expect(result.value).toBeInstanceOf(Food404)
     })
+    // it('should add food to cart', async () => {
+    //     const result = await useCase.execute(dto)
+    // })
 
-    it('should throw error if redis cart is empty', async () => {
-        cartService.getCartItems = jest.fn(() => Promise.reject())
-        const result = await useCase.execute(dto)
-        expect(result.value.isFailure).toBeTruthy()
-        expect(result.value).toBeInstanceOf(CartIsEmpty)
-
-    })
-
-    it('should increment if item exists in redis cart', async () => {
-        cartService.getCartItems = jest.fn(() => Promise.resolve(dto))
-        const result = await useCase.execute(dto)
-        await cartService.increment('1', '1')
-        const item = await cartService.getCartItems('1')
-        // expect(dto.qty).toBe(dto.qty + 1)
-    })
 })
