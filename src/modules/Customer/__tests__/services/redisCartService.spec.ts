@@ -13,9 +13,9 @@ describe('Redis Cart Service', () => {
         redisClient.flushAll()
         dto = {
             foodId: 'foodId',
-            qty: 9,
             userId: 'userId'
         }
+
     })
 
 
@@ -31,17 +31,13 @@ describe('Redis Cart Service', () => {
         expect(result1[dto.foodId]).toBe(dto.foodId)
     })
 
-    it('should increment if item exists', async () => {
+    it('should increment', async () => {
 
+        await cartService.addToCart(dto.userId, dto.foodId)
         await cartService.increment(dto.userId)
-        const result1 = await cartService.getCartItems(dto.userId)
-
         await cartService.increment(dto.userId)
         const result2 = await cartService.getCartItems(dto.userId)
-
-        expect(result1).toBeTruthy()
-        // expect(result2).toBe("2")
-
+         expect(result2['qty']).toBe("2")
     })
 
     it('should decrement if item exists', async () => {

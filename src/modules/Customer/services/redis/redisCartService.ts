@@ -11,6 +11,7 @@ export class RedisCartService extends AbstractRedisClient implements ICartServic
 
     public async addToCart(userId: string, foodId: string) {
         await this.client.hSet(userId, foodId, foodId)
+        return
     }
     public async decrement(userId: string, foodId: string): Promise<void> {
         const result = await this.getCartItems(userId)

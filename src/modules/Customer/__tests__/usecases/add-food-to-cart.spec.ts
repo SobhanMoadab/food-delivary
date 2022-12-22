@@ -29,8 +29,7 @@ describe('Add food to cart', () => {
         useCase = new AddFoodToCart(foodRepo, cartService)
         dto = {
             userId: '1',
-            foodId: '1',
-            qty: 1
+            foodId: '1'
         }
     })
 
