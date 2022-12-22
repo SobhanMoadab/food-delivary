@@ -37,6 +37,13 @@ describe('Add food to cart', () => {
         expect(result.value.isFailure).toBeTruthy()
         expect(result.value).toBeInstanceOf(Food404)
     })
+
+    it('should throw error if cart is empty', async () => {
+        cartService.getCartItems = jest.fn(() => Promise.reject())
+        const result = await useCase.execute(dto)
+        expect(result.value.isFailure).toBeTruthy()
+        expect(result.value).toBeInstanceOf(CartIsEmpty)
+    })
     // it('should add food to cart', async () => {
     //     const result = await useCase.execute(dto)
     // })
