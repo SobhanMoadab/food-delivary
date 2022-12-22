@@ -43,7 +43,7 @@ export class AddFoodToCart implements UseCase<AddFoodToCartDTO, Promise<Response
             }
 
             try {
-                cartItems = await this.cartService.retrieveItems(req.userId)
+                cartItems = await this.cartService.getCartItems(req.userId)
             } catch (err) {
                 return left(new CartIsEmpty())
             }

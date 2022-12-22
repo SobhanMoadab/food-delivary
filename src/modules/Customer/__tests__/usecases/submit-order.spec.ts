@@ -21,7 +21,7 @@ describe('submit order', () => {
             save: jest.fn()
         }
         cartService = {
-            retrieveItems: jest.fn(),
+            getCartItems: jest.fn(),
             decrement: jest.fn(),
             increment: jest.fn()
         }

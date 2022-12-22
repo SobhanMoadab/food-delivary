@@ -22,7 +22,7 @@ describe('Add food to cart', () => {
             saveBulk: jest.fn()
         }
         cartService = {
-            retrieveItems: jest.fn(),
+            getCartItems: jest.fn(),
             decrement: jest.fn(),
             increment: jest.fn()
         }
@@ -43,7 +43,7 @@ describe('Add food to cart', () => {
     })
 
     it('should throw error if redis cart is empty', async () => {
-        cartService.retrieveItems = jest.fn(() => Promise.reject())
+        cartService.getCartItems = jest.fn(() => Promise.reject())
         const result = await useCase.execute(dto)
         expect(result.value.isFailure).toBeTruthy()
         expect(result.value).toBeInstanceOf(CartIsEmpty)
@@ -51,10 +51,10 @@ describe('Add food to cart', () => {
     })
 
     it('should increment if item exists in redis cart', async () => {
-        cartService.retrieveItems = jest.fn(() => Promise.resolve(dto))
+        cartService.getCartItems = jest.fn(() => Promise.resolve(dto))
         const result = await useCase.execute(dto)
         await cartService.increment('1', '1')
-        const item = await cartService.retrieveItems('1')
+        const item = await cartService.getCartItems('1')
         // expect(dto.qty).toBe(dto.qty + 1)
     })
 })

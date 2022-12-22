@@ -44,7 +44,7 @@ export class SubmitOrderUseCase implements UseCase<SubmitOrderDTO, Promise<Respo
             }
 
             try {
-                await this.cartService.retrieveItems(req.userId)
+                await this.cartService.getCartItems(req.userId)
             } catch (err) {
                 return left(new CartIsEmpty())
             }
