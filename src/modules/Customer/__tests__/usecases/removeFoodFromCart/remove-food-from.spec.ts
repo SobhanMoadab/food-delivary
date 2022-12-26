@@ -1,7 +1,6 @@
-import { cartService } from "../../services"
-import { ICartService } from "../../services/cartService"
-import { RemoveFoodFromCart } from "../../usecases/removeFoodFromCart/RemoveFoodFromCart"
-import { RemoveFoodFromCartDTO } from "../../usecases/removeFoodFromCart/RemoveFoodFromCartDTO"
+import { ICartService } from "../../../services/cartService"
+import { RemoveFoodFromCart } from "../../../usecases/removeFoodFromCart/RemoveFoodFromCart"
+import { RemoveFoodFromCartDTO } from "../../../usecases/removeFoodFromCart/RemoveFoodFromCartDTO"
 
 describe('Remove food from cart', () => {
     let useCase: RemoveFoodFromCart

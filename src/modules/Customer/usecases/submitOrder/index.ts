@@ -9,13 +9,12 @@ import { SubmitOrderController } from "./SubmitOrderController"
 import { RedisCartService } from "../../services/redis/redisCartService"
 import { redisClient } from "../../services/redis/redisConnection"
 
-
-const orderRepository = new OrderRepository(OrderModel)
 const foodRepository = new FoodRepository(FoodModel)
 const restaurantRepository = new RestaurantRepository(RestaurantModel, foodRepository)
-const redisService = new RedisCartService(redisClient)
+const cartService = new RedisCartService(redisClient)
 
-const createSubmitOrderUseCase = new SubmitOrderUseCase(redisService, restaurantRepository)
+
+const createSubmitOrderUseCase = new SubmitOrderUseCase(restaurantRepository, cartService)
 const createSubmitOrderController = new SubmitOrderController(createSubmitOrderUseCase)
 
 export {
