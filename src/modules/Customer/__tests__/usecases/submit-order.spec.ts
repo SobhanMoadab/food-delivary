@@ -23,7 +23,8 @@ describe('submit order', () => {
         cartService = {
             getCartItems: jest.fn(),
             decrement: jest.fn(),
-            increment: jest.fn()
+            increment: jest.fn(),
+            emptyCart: jest.fn()
         }
         useCase = new SubmitOrderUseCase(restaurantRepo, cartService)
 

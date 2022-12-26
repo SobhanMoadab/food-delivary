@@ -26,7 +26,8 @@ describe('Add food to cart', () => {
         cartService = {
             decrement: jest.fn(),
             getCartItems: jest.fn(),
-            increment: jest.fn()
+            increment: jest.fn(),
+            emptyCart: jest.fn()
         }
         useCase = new AddFoodToCart(foodRepo, cartService)
     })

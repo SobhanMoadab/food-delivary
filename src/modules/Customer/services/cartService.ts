@@ -3,4 +3,5 @@ export interface ICartService {
     getCartItems(userId: string): Promise<any>
     increment(userId: string, foodId: string): Promise<void>
     decrement(userId: string, foodId: string): Promise<void>
+    emptyCart(userId: string): Promise<void>
 } 

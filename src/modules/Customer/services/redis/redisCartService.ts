@@ -13,11 +13,12 @@ export class RedisCartService extends AbstractRedisClient implements ICartServic
         await this.client.hSet(userId, foodId, foodId)
         return
     }
-    public async decrement(userId: string, foodId: string): Promise<void> {
+    public async decrement(userId: string): Promise<void> {
         const result = await this.getCartItems(userId)
         if (result) {
             await this.client.hIncrBy(userId, 'qty', -1)
         }
+        
     }
 
     public async getCartItems(userId: string) {
@@ -35,5 +36,11 @@ export class RedisCartService extends AbstractRedisClient implements ICartServic
 
     public async increment(userId: string) {
         await this.client.hIncrBy(`${userId}`, 'qty', 1)
+        return
+    }
+
+    public async emptyCart(userId: string): Promise<void> {
+        await this.client.del(userId)
+        return
     }
 }

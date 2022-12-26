@@ -46,8 +46,21 @@ describe('Redis Cart Service', () => {
         await cartService.increment(dto.userId)
         const result1 = await cartService.getCartItems(dto.userId)
         expect(result1['qty']).toBe('1')
-        await cartService.decrement(dto.userId, dto.foodId)
+
+        await cartService.decrement(dto.userId)
         const result2 = await cartService.getCartItems(dto.userId)
         expect(result2['qty']).toBe('0')
+    })
+
+    it('should empty cart', async () => {
+        await cartService.addToCart(dto.userId, dto.foodId)
+        await cartService.increment(dto.userId)
+        const result1 = await redisClient.keys(dto.userId)
+        expect(result1.includes('userId')).toBeTruthy()
+
+        await cartService.emptyCart(dto.userId)
+        const result2 = await redisClient.keys(dto.userId)
+        expect(result2.includes('userId')).toBeFalsy()
+        
     })
 })
