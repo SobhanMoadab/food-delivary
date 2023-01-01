@@ -4,7 +4,6 @@ import { UnexpectedError } from '../../../../shared/core/AppError'
 import { Either, left, Result, right } from '../../../../shared/core/Result'
 import { UseCase } from '../../../../shared/core/UseCase'
 import { Restaurant } from '../../domain/restaurant'
-import { ICategoryRepository } from '../../repos/ICategoryRepository'
 import { IRestaurantRepository } from '../../repos/IRestaurantRepository'
 import { RegisterRestaurantDTO } from './RegisterRestaurantDTO'
 
@@ -18,7 +17,6 @@ type Response = Either<
 export class RegisterRestaurantUseCase implements UseCase<RegisterRestaurantDTO, Promise<Response>> {
 
     constructor(
-        public categoryRepo: ICategoryRepository,
         public restaurantRepo: IRestaurantRepository
     ) { }
 

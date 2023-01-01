@@ -1,9 +1,8 @@
-import { IRestaurantRepository } from "../../../Restaurant/repos/IRestaurantRepository"
-import { Restaurant404 } from "../../../Restaurant/usecases/registerRestaurant/RegisterRestaurantErrors"
-import { ICartService } from "../../services/cartService"
-import { SubmitOrderUseCase } from "../../usecases/submitOrder/SubmitOrder"
-import { SubmitOrderDTO } from "../../usecases/submitOrder/SubmitOrderDTO"
-import { CartIsEmpty } from "../../usecases/submitOrder/SubmitOrderErrors"
+import { IRestaurantRepository } from "../../../../Restaurant/repos/IRestaurantRepository"
+import { Restaurant404 } from "../../../../Restaurant/usecases/registerRestaurant/RegisterRestaurantErrors"
+import { ICartService } from "../../../services/cartService"
+import { SubmitOrderUseCase } from "../../../usecases/submitOrder/SubmitOrder"
+import { SubmitOrderDTO } from "../../../usecases/submitOrder/SubmitOrderDTO"
 
 
 
@@ -11,7 +10,8 @@ describe('submit order', () => {
     let restaurantRepo: IRestaurantRepository,
         cartService: ICartService,
         dto: SubmitOrderDTO,
-        useCase: SubmitOrderUseCase
+        useCase: SubmitOrderUseCase,
+        spy: any
 
     beforeEach(() => {
         jest.resetModules()
@@ -27,7 +27,6 @@ describe('submit order', () => {
             emptyCart: jest.fn()
         }
         useCase = new SubmitOrderUseCase(restaurantRepo, cartService)
-
         dto = {
             foodsPrice: 333,
             restaurantId: '1',

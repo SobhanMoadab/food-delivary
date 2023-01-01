@@ -20,6 +20,7 @@ export class RestaurantMapper {
             ownerName: restaurant.props.ownerName,
             ownerSurname: restaurant.props.ownerSurname,
             city: restaurant.props.city,
+            phoneNumber: restaurant.props.phoneNumber
         }
     }
 }

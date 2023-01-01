@@ -1,6 +1,4 @@
-import { RemoveFoodFromCartController } from "../../../usecases/removeFoodFromCart/RemoveFoodFromCartController"
 import request from 'supertest'
-import { RemoveFoodFromCart } from "../../../usecases/removeFoodFromCart/RemoveFoodFromCart"
 import { app } from '../../../../../shared/infra/http/app'
 
 describe('remove food from cart endpoint', () => {

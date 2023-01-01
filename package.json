@@ -8,7 +8,7 @@
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
     "test": "jest --forceExit",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watchAll --detectOpenHandles --maxWorkers=1",
     "test:clear": "jest --clearCache"
   },
   "jest": {

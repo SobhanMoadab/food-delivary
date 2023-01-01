@@ -10,7 +10,7 @@ export class RemoveFoodFromCartController extends BaseController {
         super()
     }
 
-    async executeImpl(req: DecodedExpressRequest, res: Response): Promise<any> {
+    async executeImpl(req: DecodedExpressRequest, res: Response) {
         try {
             return res.status(201).json({ status: 201, msg: 'Successful' })
 

@@ -2,6 +2,7 @@ import { RedisClientType } from "@redis/client";
 import { ICartService } from "../cartService";
 import { AbstractRedisClient } from "./redisAbstractClient";
 
+export type CartItems = Promise<{ [x: string]: string }>
 
 
 export class RedisCartService extends AbstractRedisClient implements ICartService {
@@ -18,10 +19,10 @@ export class RedisCartService extends AbstractRedisClient implements ICartServic
         if (result) {
             await this.client.hIncrBy(userId, 'qty', -1)
         }
-        
+
     }
 
-    public async getCartItems(userId: string) {
+    public async getCartItems(userId: string): CartItems {
         try {
             const result = await this.client.hGetAll(`${userId}`)
             if (!result || result === null) {

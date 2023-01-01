@@ -5,7 +5,7 @@ import { registerRestaurantController } from '../../../usecases/registerRestaura
 
 const restaurantRouter = express.Router()
 
-restaurantRouter.post('/', (req: any, res) => registerRestaurantController.executeImpl(req, res))
+restaurantRouter.post('/register', (req: any, res) => registerRestaurantController.executeImpl(req, res))
 restaurantRouter.get('/', (req: any, res) => allRestaurantController.executeImpl(req, res))
 restaurantRouter.get('/:id', (req: any, res) => getRestaurantByIdController.executeImpl(req, res))
 

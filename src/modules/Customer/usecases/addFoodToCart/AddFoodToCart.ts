@@ -10,6 +10,7 @@ import { Food } from "../../../Restaurant/domain/food";
 import { IFoodRepository } from "../../../Restaurant/repos/IFoodRepository";
 import { Food404 } from "../../../Restaurant/usecases/addFoodToRestaurant/addFoodToRestaurantErrors";
 import { ICartService } from "../../services/cartService";
+import { CartItems } from "../../services/redis/redisCartService";
 import { CartIsEmpty } from "../submitOrder/SubmitOrderErrors";
 import { AddFoodToCartDTO } from "./AddFoodToCartDTO";
 
@@ -34,7 +35,7 @@ export class AddFoodToCart implements UseCase<AddFoodToCartDTO, Promise<Response
         try {
 
             let food: Food
-            let cartItems: any
+            let cartItems: CartItems
 
             try {
                 food = await this.foodRepo.findById(req.foodId)
@@ -42,18 +43,10 @@ export class AddFoodToCart implements UseCase<AddFoodToCartDTO, Promise<Response
                 return left(new Food404())
             }
 
-            try {
-                cartItems = await this.cartService.getCartItems(req.userId)
-            } catch (err) {
-                return left(new CartIsEmpty())
-            }
+            await this.cartService.increment(req.userId, req.foodId)
 
-            if (cartItems[req.userId]){
-                cartItems.increment()
-            }
+            return right(Result.ok<void>())
 
-
-                return right(Result.ok<void>())
         } catch (err) {
             return left(new UnexpectedError(err)) as Response;
         }

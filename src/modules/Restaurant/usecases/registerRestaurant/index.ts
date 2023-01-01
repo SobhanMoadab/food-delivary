@@ -11,7 +11,7 @@ const foodRepo = new FoodRepository(FoodModel)
 const restaurantRepo = new RestaurantRepository(RestaurantModel, foodRepo)
 const categoryRepo = new CategoryRepository(CategoryModel, foodRepo)
 
-const registerRestaurantUseCase = new RegisterRestaurantUseCase(categoryRepo, restaurantRepo)
+const registerRestaurantUseCase = new RegisterRestaurantUseCase(restaurantRepo)
 const registerRestaurantController = new RegisterRestaurantController(registerRestaurantUseCase)
 
 export {
