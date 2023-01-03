@@ -10,7 +10,7 @@ describe('Login customer useCase', () => {
 
     beforeEach(() => {
         customerRepo = {
-            exists: jest.fn(() => Promise.reject()),
+            exists: jest.fn(),
             getCustomerByEmail: jest.fn(),
             list: jest.fn(),
             save: jest.fn()
@@ -22,8 +22,16 @@ describe('Login customer useCase', () => {
     })
 
     it('should throw error if email is not found', async () => {
+        customerRepo.exists = jest.fn(() => Promise.reject())
         const result = await useCase.execute(dto)
         expect(result.value.isFailure).toBeTruthy()
+    })
+
+    it('should respond without error', async () => {
+        customerRepo.exists = jest.fn(() => Promise.resolve(true))
+        const result = await useCase.execute(dto)
+        console.log("🚀 ~ file: login-customer.spec.ts:32 ~ it ~ result", result)
+        expect(result.value.isSuccess).toBeTruthy()
     })
 
 
