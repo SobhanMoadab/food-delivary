@@ -8,7 +8,7 @@ describe('Redis Cart Service', () => {
     let cartService: RedisCartService
     let dto: AddFoodToCartDTO
 
-    beforeEach(() => {
+    beforeEach(async () => {
         cartService = new RedisCartService(redisClient)
         redisClient.flushAll()
         dto = {

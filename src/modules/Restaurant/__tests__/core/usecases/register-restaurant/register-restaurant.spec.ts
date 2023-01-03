@@ -1,4 +1,3 @@
-import { RestaurantRepository } from "../../../../repos/impl/restaurantImpl"
 import { IRestaurantRepository } from "../../../../repos/IRestaurantRepository"
 import { RegisterRestaurantUseCase } from "../../../../usecases/registerRestaurant/RegisterRestaurant"
 import { RegisterRestaurantDTO } from "../../../../usecases/registerRestaurant/RegisterRestaurantDTO"
