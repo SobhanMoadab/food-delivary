@@ -23,6 +23,7 @@ export class FoodRepository implements IFoodRepository {
     }
 
     async saveBulk(foods: Food[]): Promise<void> {
+        console.log({ 1111: foods })
         for (let food of foods) {
             await this.save(food)
         }

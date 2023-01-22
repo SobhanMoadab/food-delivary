@@ -38,7 +38,6 @@ export class RestaurantRepository implements IRestaurantRepository {
 
     async findById(id: string): Promise<Restaurant> {
         const restaurant = await this._model.findById(id).lean()
-        console.log({ 1111: restaurant})
         if (!restaurant) throw new Error()
         return RestaurantMapper.toDomain({ ...restaurant })
     }

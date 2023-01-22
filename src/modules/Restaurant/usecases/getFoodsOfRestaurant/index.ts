@@ -5,11 +5,11 @@ import { GetFoodsOfRestaurantController } from "./GetFoodsOfRestaurantController
 
 
 const foodRepo = new FoodRepository(FoodModel)
-const createGetFoodsOfRestaurantUseCase = new GetFoodsOfRestaurant(foodRepo)
-const createGetFoodsOfRestaurant = new GetFoodsOfRestaurantController(createGetFoodsOfRestaurantUseCase)
+const getFoodsOfRestaurantUseCase = new GetFoodsOfRestaurant(foodRepo)
+const getFoodsOfRestaurantController = new GetFoodsOfRestaurantController(getFoodsOfRestaurantUseCase)
 
 
 export {
-    createGetFoodsOfRestaurantUseCase,
-    createGetFoodsOfRestaurant
+    getFoodsOfRestaurantUseCase,
+    getFoodsOfRestaurantController
 }
