@@ -2,6 +2,7 @@ import { UnexpectedError } from "../../../../shared/core/AppError";
 import { Either, left, Result, right } from "../../../../shared/core/Result";
 import { UseCase } from "../../../../shared/core/UseCase";
 import { ICustomerRepository } from "../../repos/ICustomerRepository";
+import { IAuthService } from "../../services/authService";
 import { LoginDTO } from "./LoginDTO";
 import { CustomerDoesNotExists } from "./LoginErrors";
 
@@ -12,7 +13,9 @@ type Response = Either<
 >
 export class LoginUseCase implements UseCase<LoginDTO, Promise<Response>> {
 
-    constructor(public customerRepo: ICustomerRepository) { }
+    constructor(
+        public customerRepo: ICustomerRepository,
+        public authService: IAuthService) { }
 
     async execute(req: LoginDTO): Promise<Response> {
         let customerExists: boolean
