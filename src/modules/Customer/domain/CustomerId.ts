@@ -12,6 +12,6 @@ export class CustomerId extends Entity<any> {
     }
 
     public static create(id?: UniqueEntityID): Result<CustomerId> {
-        return Result.ok<CustomerId>(new CustomerId(id));
+        return Result.ok<CustomerId>(new CustomerId());
     }
 }

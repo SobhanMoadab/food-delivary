@@ -1,4 +1,6 @@
-import { OrderRepository } from "../../../repos/impl/OrderImpl"
+import { RestaurantId } from "../../../../Restaurant/domain/RestaurantId"
+import { CustomerId } from "../../../domain/CustomerId"
+import { Order } from "../../../domain/Order"
 import { IOrderRepository } from "../../../repos/IOrderRepository"
 import { AddCommentToOrder } from "../../../usecases/addCommentToOrder/AddCommentToOrder"
 import { AddCommentToOrderDTO } from "../../../usecases/addCommentToOrder/AddCommentToOrderDTO"
@@ -9,6 +11,7 @@ describe('AddCommentToOrder UseCase', () => {
     let useCase: AddCommentToOrder
     let dto: AddCommentToOrderDTO
     let orderRepo: IOrderRepository
+    let order: Order
 
     beforeEach(() => {
         orderRepo = {
@@ -17,8 +20,16 @@ describe('AddCommentToOrder UseCase', () => {
         }
         useCase = new AddCommentToOrder(orderRepo)
         dto = {
-            orderId: 'test'
+            orderId: 'test',
+            body: 'test',
+            customerId: CustomerId.create().getValue().id.toString(),
+            title: 'test'
         }
+        order = Order.create({
+            foodsPrice: 3333,
+            restaurantId: RestaurantId.create().getValue(),
+            status: 'test',
+        }).getValue()
     })
 
     it('should be defined', () => {
@@ -29,5 +40,12 @@ describe('AddCommentToOrder UseCase', () => {
         orderRepo.findById = jest.fn(() => Promise.reject())
         const result = await useCase.execute(dto)
         expect(result.value).toBeInstanceOf(Order404)
+    })
+
+    it('should respond correctly without error', async () => {
+        orderRepo.findById = jest.fn(() => Promise.resolve(order))
+        const result = await useCase.execute(dto)
+        expect(result.isLeft()).toBeFalsy()
+
     })
 })
