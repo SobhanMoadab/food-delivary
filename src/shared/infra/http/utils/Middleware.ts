@@ -11,12 +11,11 @@ export class Middleware {
     }
     public ensureAuthenticated() {
         return async (req: any, res: Response, next: NextFunction) => {
-            const token = req.headers['authorization']
+            const token = req.headers.authorization.split(" ")[1];
             if (!token) {
                 return this.endRequest(403, 'Token does not exists', res)
             }
-
-            const decoded = await this.authService.decodeJWT(token)
+            const decoded = this.authService.decodeJWT(token)
             if (!decoded) {
                 return this.endRequest(403, 'Token does not exists', res)
             }

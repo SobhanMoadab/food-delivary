@@ -14,10 +14,11 @@ export class RedisAuthService extends AbstractRedisClient implements IAuthServic
     constructor(redisClient: RedisClientType) {
         super(redisClient)
     }
-    public decodeJWT(token: string): Promise<JWTClaims> {
-        throw new Error()
+    public decodeJWT(token: string): JWTClaims {
+        const result = jwt.verify(token, '123456789!')
+        return result as JWTClaims
     }
-    
+
     public async getTokens(userId: string): Promise<string[]> {
         const keyValue = await this.getAllKeys(`*${this.jwtHashName}.${userId}`)
         return keyValue.map(kv => kv.value)

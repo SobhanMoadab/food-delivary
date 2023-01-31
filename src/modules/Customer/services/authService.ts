@@ -4,7 +4,7 @@ import { JWTClaims, JWTToken, RefreshToken } from "../domain/Jwt";
 
 export interface IAuthService {
     signJWT(props: JWTClaims): JWTToken;
-    decodeJWT(token: string): Promise<JWTClaims>;
+    decodeJWT(token: string): JWTClaims;
     createRefreshToken(): RefreshToken;
     getTokens(userId: string): Promise<string[]>;
     saveAuthenticatedCustomer(customer: Customer): Promise<void>;
