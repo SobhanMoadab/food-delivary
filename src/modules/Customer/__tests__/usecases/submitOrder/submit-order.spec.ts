@@ -3,6 +3,7 @@ import { Restaurant404 } from "../../../../Restaurant/usecases/registerRestauran
 import { ICartService } from "../../../services/cartService"
 import { SubmitOrderUseCase } from "../../../usecases/submitOrder/SubmitOrder"
 import { SubmitOrderDTO } from "../../../usecases/submitOrder/SubmitOrderDTO"
+import { CartIsEmpty } from "../../../usecases/submitOrder/SubmitOrderErrors"
 
 
 
@@ -40,7 +41,12 @@ describe('submit order', () => {
         expect(result.value).toBeInstanceOf(Restaurant404)
         expect(result.value.isSuccess).toBeFalsy()
     })
-
+    it('should throw error if cart is empty', async () => {
+        cartService.getCartItems = jest.fn(() => Promise.reject())
+        const result = await useCase.execute({ foodsPrice: 333333, restaurantId: 'test', userId: 'test' })
+        expect(result.value).toBeInstanceOf(CartIsEmpty)
+        expect(result.isRight()).toBeFalsy()
+    })
     it('should respond correctly', async () => {
         const result = await useCase.execute(dto)
         expect(result.value.isSuccess).toBeTruthy()

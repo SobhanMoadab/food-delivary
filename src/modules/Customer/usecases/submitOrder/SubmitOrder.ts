@@ -7,6 +7,7 @@ import { Restaurant } from "../../../Restaurant/domain/restaurant";
 import { IRestaurantRepository } from "../../../Restaurant/repos/IRestaurantRepository";
 import { Food404 } from "../../../Restaurant/usecases/addFoodToRestaurant/addFoodToRestaurantErrors";
 import { Restaurant404 } from "../../../Restaurant/usecases/registerRestaurant/RegisterRestaurantErrors";
+import { Order } from "../../domain/Order";
 import { ICartService } from "../../services/cartService";
 import { SubmitOrderDTO } from "./SubmitOrderDTO";
 import { CartIsEmpty } from "./SubmitOrderErrors";
@@ -34,6 +35,7 @@ export class SubmitOrderUseCase implements UseCase<SubmitOrderDTO, Promise<Respo
 
         let restaurant: Restaurant
         let food: Food
+        let cartItems: any
 
         try {
 
@@ -44,11 +46,10 @@ export class SubmitOrderUseCase implements UseCase<SubmitOrderDTO, Promise<Respo
             }
 
             try {
-                await this.cartService.getCartItems(req.userId)
+                cartItems = await this.cartService.getCartItems(req.userId)
             } catch (err) {
                 return left(new CartIsEmpty())
             }
-
             // try {
             //     food = await this.foodRepo.findById(req.foodId)
             // } catch (err) {

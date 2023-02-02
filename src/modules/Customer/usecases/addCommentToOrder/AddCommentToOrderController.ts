@@ -24,17 +24,17 @@ export class AddCommentToOrderController extends BaseController {
                 const error = result.value
                 switch (error.constructor) {
                     case Order404:
-                        return res.status(400).json({ status: 400, msg: error.getErrorValue() })
+                        return res.status(400).json({ status: 400, result: error.getErrorValue() })
                     case UnexpectedError:
-                        return res.status(500).json({ status: 500, msg: error.getErrorValue() })
+                        return res.status(500).json({ status: 500, result: error.getErrorValue() })
                     default:
-                        return res.status(500).json({ status: 500, msg: error.getErrorValue() })
+                        return res.status(500).json({ status: 500, result: error.getErrorValue() })
                 }
             } else {
-                return res.status(201).json({ status: 201, msg: 'Successful' })
+                return res.status(201).json({ status: 201, result: 'Successful' })
             }
         } catch (err) {
-            return res.status(500).json({ status: 500, msg: 'Something went wrong' })
+            return res.status(500).json({ status: 500, result: 'Something went wrong' })
         }
     }
 }

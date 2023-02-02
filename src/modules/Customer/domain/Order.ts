@@ -16,6 +16,7 @@ export interface OrderProps {
     restaurantId: RestaurantId,
     foodsPrice: number
     status: string
+    foods?: Foods
     comments?: Comments
 }
 
@@ -26,7 +27,6 @@ export class Order extends Entity<OrderProps> {
     }
     get comments(): Comments {
         return this.props.comments ?? Comments.create()
-
     }
     static create(props: OrderProps): Result<Order> {
         const guardResult = Guard.againstNullOrUndefinedBulk([
