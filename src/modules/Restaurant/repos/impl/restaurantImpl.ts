@@ -19,6 +19,7 @@ export class RestaurantRepository implements IRestaurantRepository {
     }
 
     async save(restaurant: Restaurant): Promise<void> {
+        // if it is new, 
         const exists = await this.exists(restaurant.restaurantId)
         const isNew = !exists
         const toPers = RestaurantMapper.toPersistence(restaurant)
@@ -28,6 +29,7 @@ export class RestaurantRepository implements IRestaurantRepository {
         }
         return
     }
+
     async exists(restaurantId: RestaurantId): Promise<boolean> {
         const id = restaurantId.id.toString()
         const founded = await this._model.findById(id)

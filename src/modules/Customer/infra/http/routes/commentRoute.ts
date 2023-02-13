@@ -5,6 +5,6 @@ import { createAddCommentToOrderController } from '../../../usecases/addCommentT
 
 const commentRouter = express.Router()
 
-commentRouter.post('/', middleware.ensureAuthenticated(), (req: any, res) => createAddCommentToOrderController.executeImpl(req, res))
+commentRouter.post('/', (req: any, res) => createAddCommentToOrderController.executeImpl(req, res))
 
 export { commentRouter }

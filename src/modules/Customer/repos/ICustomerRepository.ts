@@ -5,4 +5,5 @@ export interface ICustomerRepository {
     exists(email: string): Promise<boolean>
     list(): Promise<Customer[]>
     getCustomerByEmail(email: string): Promise<Customer>
+    findById(id: string): Promise<Customer>
 }

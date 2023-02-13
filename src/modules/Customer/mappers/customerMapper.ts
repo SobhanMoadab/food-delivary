@@ -10,7 +10,7 @@ export class CustomerMapper {
             phoneNumber: raw.phoneNumber,
             accessToken: raw.accessToken,
             refreshToken: raw.refreshToken,
-        })
+        }, raw._id)
         return customerOrError.isSuccess ? customerOrError.getValue() : customerOrError.getErrorValue()
     }
 

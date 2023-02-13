@@ -8,3 +8,10 @@ export class Order404 extends Result<UseCaseError> {
         } as UseCaseError)
     }
 }
+export class Customer404 extends Result<UseCaseError> {
+    constructor() {
+        super(false, {
+            message: `The given customerId does not exists`
+        } as UseCaseError)
+    }
+}

@@ -4,21 +4,21 @@ import { Order } from "../domain/Order";
 
 export class OrderMapper {
     public static toDomain(raw: any): Order {
-        console.log({ raw });
         const orderOrError = Order.create({
-            foodsPrice: raw._doc.foodsPrice,
-            restaurantId: raw._doc.restaurantId,
-            status: raw._doc.restaurant,
-            customerId: raw._doc.customerId,
-        }, raw._doc.id)
+            foodsPrice: raw.foodsPrice,
+            restaurantId: raw.restaurantId,
+            status: raw.restaurant,
+            customerId: raw.customerId,
+        }, raw._id)
         return orderOrError.isSuccess ? orderOrError.getValue() : orderOrError.getErrorValue()
     }
 
     public static toPersistence({ props }: Order): any {
         return {
             foodsPrice: props.foodsPrice,
-            status: props.status,
-            restaurant: props.restaurantId,
+            status: props.status ?? 'PENDING',
+            restaurantId: props.restaurantId,
+            customerId: props.customerId
         }
     }
 }   

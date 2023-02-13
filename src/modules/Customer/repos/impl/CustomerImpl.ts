@@ -32,9 +32,14 @@ export class CustomerRepository implements ICustomerRepository {
     }
 
     async getCustomerByEmail(email: string): Promise<Customer> {
-        const customer = await this._model.findOne({ email })
+        const customer = await this._model.findOne({ email }).lean()
         if (!customer) throw new Error('Not found')
         return CustomerMapper.toDomain(customer)
+    }
 
+    async findById(id: string): Promise<Customer> {
+        const customer = await this._model.findById(id).lean()
+        if (!customer) throw new Error('Not found')
+        return CustomerMapper.toDomain(customer)
     }
 }

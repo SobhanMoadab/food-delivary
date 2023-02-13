@@ -10,6 +10,7 @@ import { RestaurantId } from "../../Restaurant/domain/RestaurantId";
 import { Comment } from "./Comment";
 import { Comments } from "./Comments";
 import { CustomerId } from "./CustomerId";
+import { OrderId } from "./OrderId";
 
 
 
@@ -30,10 +31,12 @@ export class Order extends Entity<OrderProps> {
     get comments(): Comments {
         return this.props.comments ?? Comments.create()
     }
-
+    get orderId(): RestaurantId {
+        return OrderId.create(this._id).getValue()
+    }
     static create(props: OrderProps, id?: UniqueEntityID): Result<Order> {
         const guardResult = Guard.againstNullOrUndefinedBulk([
-            // { argument: props.customer, argumentName: 'customer' },
+            { argument: props.customerId, argumentName: 'customerId' },
             { argument: props.foodsPrice, argumentName: 'foodsPrice' },
             { argument: props.restaurantId, argumentName: 'restaurantId' },
         ])
