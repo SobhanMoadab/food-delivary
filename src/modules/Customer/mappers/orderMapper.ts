@@ -4,13 +4,13 @@ import { Order } from "../domain/Order";
 
 export class OrderMapper {
     public static toDomain(raw: any): Order {
-
+        console.log({ raw });
         const orderOrError = Order.create({
             foodsPrice: raw._doc.foodsPrice,
             restaurantId: raw._doc.restaurantId,
             status: raw._doc.restaurant,
-            id: raw._doc._id
-        })
+            customerId: raw._doc.customerId,
+        }, raw._doc.id)
         return orderOrError.isSuccess ? orderOrError.getValue() : orderOrError.getErrorValue()
     }
 
@@ -19,7 +19,6 @@ export class OrderMapper {
             foodsPrice: props.foodsPrice,
             status: props.status,
             restaurant: props.restaurantId,
-            id: new ObjectId()
         }
     }
 }   

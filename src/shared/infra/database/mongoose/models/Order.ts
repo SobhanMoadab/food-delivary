@@ -4,6 +4,7 @@ import { OrderProps } from '../../../../../modules/Customer/domain/Order'
 
 export const Order = new Schema<OrderProps>({
     restaurantId: { type: Schema.Types.ObjectId, ref: 'Restaurant', required: true },
+    customerId: { type: Schema.Types.ObjectId, ref: 'Comment', require: true },
     foodsPrice: { type: Number, required: true },
     status: { type: String, required: true },
 }, { timestamps: true })
