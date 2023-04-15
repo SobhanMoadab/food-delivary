@@ -46,7 +46,7 @@ export class AddCommentToOrder implements UseCase<AddCommentToOrderDTO, Promise<
             const comment = Comment.create({
                 body: req.body,
                 customerId: customer.customerId,
-                title: req.title,
+            title: req.title,
                 orderId: order.orderId
             }).getValue()
             order.addComment(comment)

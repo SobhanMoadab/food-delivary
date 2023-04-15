@@ -1,8 +1,13 @@
+import { FindNearRestaurant } from "../../../usecases/findNearRestaurant/FindNearRestaurant"
 
 
-describe('find near restaurant', () => { 
-    
-    it('should throw', ()=>{
-        console.log()
+describe('Find near restaurant useCase', () => {
+    let useCase: FindNearRestaurant
+
+    beforeEach(()=> {
+        useCase = new FindNearRestaurant()
     })
- })
+    it('should exists', () => {
+       expect(useCase).toBeDefined()
+    })
+})

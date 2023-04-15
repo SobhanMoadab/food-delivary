@@ -8,7 +8,7 @@ import { JWTToken, RefreshToken } from "./Jwt";
 
 export interface CustomerProps {
     name: string,
-    phoneNumber: string,
+    phoneNumber: number,
     email: string,
     address: string,
     accessToken?: JWTToken;
@@ -23,7 +23,7 @@ export class Customer extends AggregateRoot<CustomerProps> {
     get customerId(): CustomerId {
         return CustomerId.create(this._id).getValue()
     }
-    get phoneNumber(): string {
+    get phoneNumber(): number {
         return this.props.phoneNumber
     }
     get accessToken(): string | undefined {
