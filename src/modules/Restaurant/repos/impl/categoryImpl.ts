@@ -52,6 +52,7 @@ export class CategoryRepository implements ICategoryRepository {
         else return CategoryMapper.toDomain({ ...category })
     }
     async getCategoriesOfRestaurant(restaurantId: string): Promise<Category[]> {
+        
         const categories = await this._model.find({ restaurantId }).populate({ path: 'products', model: 'Product' })
         if (!categories) throw new Error()
         return categories.map(c => CategoryMapper.toDomain(c))

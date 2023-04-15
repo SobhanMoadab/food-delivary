@@ -2,7 +2,7 @@ import { JWTToken, RefreshToken } from "../../domain/Jwt"
 
 export interface RegisterDTO {
     name: string,
-    phoneNumber: number,
+    phoneNumber: string,
     email: string,
     address: string
 }

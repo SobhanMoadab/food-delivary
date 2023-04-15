@@ -7,7 +7,7 @@ export const Customer = new Schema<CustomerProps>({
   email: { type: String },
   accessToken: { type: String },
   address: { type: String },
-  phoneNumber: { type: Number },
+  phoneNumber: { type: String },
   refreshToken: { type: String }
 })
 

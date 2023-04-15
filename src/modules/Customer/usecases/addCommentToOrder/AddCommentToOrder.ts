@@ -54,7 +54,6 @@ export class AddCommentToOrder implements UseCase<AddCommentToOrderDTO, Promise<
             return right(Result.ok())
 
         } catch (err) {
-            console.log("🚀 ~ file: AddCommentToOrder.ts:59 ~ AddCommentToOrder ~ execute ~ err", err)
             return left(new UnexpectedError('Something went wrong'))
         }
 
