@@ -2,8 +2,7 @@ export interface FindNearRestaurantDTO {
     city: string
 }
 
-export interface RestaurantsDTO {
+export type NearRestaurantsDTO = Array<{
     name: string
     rating: number
-    foods: string
-}
+}> 

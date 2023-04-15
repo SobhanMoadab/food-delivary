@@ -23,4 +23,10 @@ export class RestaurantMapper {
             phoneNumber: restaurant.props.phoneNumber
         }
     }
+    public static toNearRestaurantDTO(restaurant: any) {
+        return {
+            rating: restaurant.props.rating,
+            name: restaurant.props.name
+        }
+    }
 }

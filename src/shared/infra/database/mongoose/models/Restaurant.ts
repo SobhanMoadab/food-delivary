@@ -7,7 +7,8 @@ export const Restaurant = new Schema<RestaurantProps>({
     ownerName: { type: String, required: true },
     ownerSurname: { type: String, required: true },
     city: { type: String, required: true },
-    phoneNumber: {type: Number, required: true}
+    phoneNumber: {type: String, required: true},
+    rating: {type: Number}
     
 
 }, { timestamps: true })

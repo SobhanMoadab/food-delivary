@@ -1,4 +1,5 @@
 import { Model } from "mongoose";
+import { NearRestaurantsDTO } from "../../../Customer/usecases/findNearRestaurant/FindNearRestaurantDTO";
 import { Restaurant, RestaurantProps } from "../../domain/restaurant";
 import { RestaurantId } from "../../domain/RestaurantId";
 import { RestaurantMapper } from "../../mappers/restaurantMapper";
@@ -47,5 +48,13 @@ export class RestaurantRepository implements IRestaurantRepository {
     async getAllRestaurants(): Promise<Restaurant[]> {
         const restaurants = await this._model.find().lean()
         return restaurants.map((restaurant) => RestaurantMapper.toDomain(restaurant))
+    }
+
+    async getRestaurantsByCity(city: string): Promise<NearRestaurantsDTO> {
+        const restaurants = await this._model.find({ city }).lean()
+        if(!restaurants){
+            throw new Error()
+        }
+        return restaurants.map((restaurant) => RestaurantMapper.toNearRestaurantDTO(restaurant))
     }
 }

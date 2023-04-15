@@ -16,8 +16,9 @@ export interface RestaurantProps {
     city: string
     ownerName: string
     ownerSurname: string
-    phoneNumber: number
+    phoneNumber: string
     foods?: Foods
+    rating?: number
 }
 
 export class Restaurant extends AggregateRoot<RestaurantProps> {
