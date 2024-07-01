@@ -29,7 +29,7 @@ export class RegisterUseCase implements UseCase<RegisterDTO, Promise<Response>> 
 
         const dto = {
             name: req.name,
-            phoneNumber: req.phoneNumber,
+            phoneNumber: parseInt(req.phoneNumber),
             email: req.email,
             address: req.address
         }

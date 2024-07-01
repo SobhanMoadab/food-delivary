@@ -16,7 +16,7 @@ export interface RestaurantProps {
     city: string
     ownerName: string
     ownerSurname: string
-    phoneNumber: string
+    phoneNumber: number
     foods?: Foods
     rating?: number
 }

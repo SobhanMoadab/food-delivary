@@ -19,13 +19,11 @@ export class FindNearRestaurant implements UseCase<FindNearRestaurantDTO, Promis
             let nearRestaurants: NearRestaurantsDTO
             try {
                 nearRestaurants =  await this.restaurantRepo.getRestaurantsByCity(req.city)
-                
             } catch (err) {
                 return left(new Restaurant404())
             }
             return right(Result.ok(nearRestaurants))
         } catch (err) {
-            console.log({ err })
             return left(new UnexpectedError('Something went wrong'))
         }
     }

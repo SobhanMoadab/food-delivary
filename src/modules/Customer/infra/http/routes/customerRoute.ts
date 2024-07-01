@@ -12,6 +12,7 @@ customerRouter.post('/register', (req: any, res) => createRegisterController.exe
 customerRouter.post('/refresh', (req: any, res) => createRefreshAccessTokenController.executeImpl(req, res))
 customerRouter.post('/remove-cart', (req: any, res) => createRemoveFoodFromCartController.executeImpl(req, res))
 customerRouter.post('/increment-cart', (req: any, res) => createAddFoodToCartController.executeImpl(req, res))
+customerRouter.get('near-restaurants', (req: any, res) => createAddFoodToCartController.executeImpl(req, res))
 // customerRouter.post('/decrement-cart', (req: any, res) => createRefreshAccessTokenController.executeImpl(req, res))
 
 export { customerRouter }

@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b797934d-4cdc-4cf6-9c54-bb1e580e8c5b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Customer/__tests__/usecases/submit-order.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/__tests__/usecases/submit-order.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Customer/domain/Jwt.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/domain/Jwt.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Customer/infra/http/routes/orderRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/infra/http/routes/orderRoute.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Customer/services/authService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/services/authService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Customer/services/redis/redisAbstractClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/services/redis/redisAbstractClient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Customer/services/redis/redisAuthService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/services/redis/redisAuthService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Customer/usecases/submitOrder/SubmitOrder.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/usecases/submitOrder/SubmitOrder.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Customer/usecases/submitOrder/SubmitOrderController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/usecases/submitOrder/SubmitOrderController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Customer/usecases/submitOrder/SubmitOrderErrors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/usecases/submitOrder/SubmitOrderErrors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/infra/http/api/v1.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/infra/http/api/v1.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/infra/http/utils/Middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/infra/http/utils/Middleware.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/Customer/infra/http/routes/customerRoute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/infra/http/routes/customerRoute.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/Customer/usecases/findNearRestaurant/FindNearRestaurant.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/usecases/findNearRestaurant/FindNearRestaurant.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/Customer/usecases/findNearRestaurant/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Customer/usecases/findNearRestaurant/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +41,7 @@
       <option name="presentableId" value="Default" />
       <updated>1668868134023</updated>
       <workItem from="1668868136781" duration="61000" />
+      <workItem from="1684292158389" duration="137000" />
     </task>
     <servers />
   </component>

@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 const origin = {
-    // origin: isProduction ? 'https://dddforum.com' : '*',
+    // origin: isProduction ? 'https:/' : '*',
     origin: "*"
 }
 export const app = express();
